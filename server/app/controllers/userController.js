@@ -1,42 +1,42 @@
 const db = require('../models');
-const Trainer = db.trainers;
+const User = db.users;
 
 exports.create = (req, res) => {
     if(!req.body.firstName) {
-        res.status(400).send({message: "Cannot be empty"})
+        res.status(400).send({message:"Cannot be empty"})
         return
     }
-    const trainer = new Trainer({
+    const user = new User({
         firstName: req.body.firstName,
-        lastName: req.body.lastName, 
+        lastName: req.body.lastName,
         userName: req.body.userName,
         password: req.body.password,
-        credentials: req.body.credentials,
+        imageUrl: req.body.imageUrl
     })
-   trainer
-    .save(trainer)
+    user
+    .save(user)
     .then(data => {
         res.send(data)
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Error occured creating trainer."
+            message: err.message || "Error occured creating User."
         })
     })
-};
+}
 
 exports.findAll = (req, res) => {
     const firstName = req.query.firstName;
     const lastName = req.query.lastName;
 
-    var condition = firstName || lastName ? {firstName: {$regex: new RegExp(firstName, lastName), $options: 'i'}} : {};
-    Trainer.find(condition)
+    var condition = firstName || lastName ? {firstName: {$regex: new RegExp(firstName, lastName), $options: 'i'}} : {}
+    User.find(condition)
     .then(data => {
         res.send(data)
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Error occured trying to retrieve trainers."
+            message: err.message || "Error occured trying to retrieve users."
         })
     })
 }

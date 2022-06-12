@@ -3,6 +3,7 @@ import BottomAppBar from "./Footer";
 import ExerciseList from "./Exercises";
 import AddExerciseForm from "./AddExerciseForm";
 import RegisterTrainer from "./RegisterTrainer";
+import RegisterUser from "./RegisterUser";
 
 const MainPage = () => {
     return (  
@@ -13,6 +14,7 @@ const MainPage = () => {
           <ExerciseList/>
           <AddExerciseForm/>
           <RegisterTrainer/>
+          <RegisterUser/>
       </div>
     );
 }
