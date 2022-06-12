@@ -9,9 +9,9 @@ const RegisterTrainer = () => {
         password: "",
         credentials: ""
     }
-    const [trainer, setTrainer] = useState([initialTrainerState]);
+    const [trainer, setTrainer] = useState(initialTrainerState);
 
-    const handleInputChange = event => {
+    const handleInputChange = async (event) => {
         event.preventDefault();
         const {name, value} = event.target;
         setTrainer({...trainer, [name]: value});
@@ -27,6 +27,7 @@ const RegisterTrainer = () => {
         }
         stayFitDataService.createTrainer(data)
         .then(response => {
+          console.log(response.data);
             setTrainer(initialTrainerState)
         })
         .catch(e => {
@@ -85,9 +86,9 @@ const RegisterTrainer = () => {
             <label htmlFor='repeatPassword'>Repeat Password</label>
             <input
                 type="text"
-                id="repeatPassWord"
+                id="repeatPassword"
                 required
-                value={trainer.password}
+                value={trainer.repeatPassword}
                 onChange={handleInputChange}
                 name="repeatPassWord"
             />

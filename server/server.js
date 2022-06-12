@@ -29,12 +29,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 const PORT = process.env.PORT || 5001
 
-
-app.get("/api", (req, res) => {
-    res.json({"users": ["userTwo", "userThree", "userFour", "userFive"]})
-})
-
 require('./app/routes/stayFitRoutes')(app); 
+require('./app/routes/trainerRoutes')(app); 
+require('./app/routes/userRoutes')(app); 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}!`); 
 })

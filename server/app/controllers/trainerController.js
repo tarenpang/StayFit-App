@@ -2,16 +2,17 @@ const db = require('../models');
 const Trainer = db.trainers;
 
 exports.create = (req, res) => {
-    if(!req.body.firstName) {
-        res.status(400).send({message: "Cannot be empty"})
-        return
-    }
+    // if(!req.body.firstName) {
+    //     res.status(400).send({message: "Cannot be empty"})
+    //     return
+    // }
     const trainer = new Trainer({
-        firstName: String,
-        lastName: String, 
-        userName: String,
-        password: String,
-        credentials: String,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName, 
+        userName: req.body.userName,
+        password: req.body.password,
+        credentials: req.body.credentials,
+        imageUrl: req.body.imageUrl,
     })
    trainer
     .save(trainer)
