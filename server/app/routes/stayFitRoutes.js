@@ -4,6 +4,7 @@ module.exports = app => {
 
     router.get('/', exercises.findAll)
     router.post('/', exercises.create)
+    
 
     app.use('/api/exercises', router)
 }

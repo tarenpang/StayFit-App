@@ -1,9 +1,9 @@
 module.exports = app => {
-  const trainers = require('../controllers/trainerController')
-  var router = require('express').Router()
+    const trainers = require('../controllers/trainerController');
+    const router = require('express').Router();
 
-  router.get('/', trainers.findAll )
-  router.post('/', trainers.create)
+    router.get('/', trainers.findAll);
+    router.post('/', trainers.create);
 
-  app.use('/api/trainers', router)
+    app.use('/api/trainers', router); 
 }

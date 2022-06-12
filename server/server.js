@@ -30,8 +30,8 @@ app.use(express.urlencoded({extended: true}))
 const PORT = process.env.PORT || 5001
 
 require('./app/routes/stayFitRoutes')(app); 
-require('./app/routes/trainerRoutes')(app); 
-require('./app/routes/userRoutes')(app); 
+require('./app/routes/trainerRoutes')(app);
+require('./app/routes/userRoutes')(app);  
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}!`); 
 })
