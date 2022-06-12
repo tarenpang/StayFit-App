@@ -16,11 +16,21 @@ const createTrainer = data => {
     return http.post('/trainers', data)
 }
 
+const getAllUsers = () => {
+    return http.get('/users')
+}
+
+const createUser = data => {
+    return http.post('/users', data)
+}
+
 const stayFitDataService = {
     getAll,
     create,
     getAllTrainers,
     createTrainer,
+    getAllUsers,
+    createUser
 }
 
 export default stayFitDataService; 

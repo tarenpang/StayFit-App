@@ -35,6 +35,8 @@ app.get("/api", (req, res) => {
 })
 
 require('./app/routes/stayFitRoutes')(app); 
+require('./app/routes/trainerRoutes')(app);
+require('./app/routes/userRoutes')(app);  
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}!`); 
 })

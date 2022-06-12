@@ -1,36 +1,34 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService'; 
 
-const RegisterTrainer = () => {
-    const initialTrainerState = {
+const RegisterUser = () => {
+    const initialUserState = {
         firstName: "",
         lastName: "",
         userName: "",
         password: "",
-        credentials: "",
-        imageUrl: ""
+        imageUrl: "",
     }
-    const [trainer, setTrainer] = useState([initialTrainerState]);
+    const [user, setUser] = useState([initialUserState]);
 
     const handleInputChange = event => {
         event.preventDefault();
         const {name, value} = event.target;
-        setTrainer({...trainer, [name]: value});
+        setUser({...user, [name]: value});
     }
 
-    const saveTrainer = () => {
+    const saveUser = () => {
         var data = {
-            firstName: trainer.firstName,
-            lastName: trainer.lastName,
-            userName: trainer.userName,
-            password: trainer.password,
-            credentials: trainer.credentials,
-            imageUrl: trainer.imageUrl
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userName: user.userName,
+            password: user.password,
+            imageUrl: user.imageUrl
         }
-        stayFitDataService.createTrainer(data)
+        stayFitDataService.createUser(data)
         .then(response => {
             console.log(response.data); 
-            setTrainer(initialTrainerState)
+            setUser(initialUserState)
         })
         .catch(e => {
             console.log(e)
@@ -39,14 +37,14 @@ const RegisterTrainer = () => {
 
     return ( 
         <div className="submit-form">
-            <h1>Register New Trainer</h1>
+            <h1>Register New User</h1>
             <div className="form-group">
             <label htmlFor="firstName">First Name</label>
             <input
                 type="text"
                 id="firstName"
                 required
-                value={trainer.firstName}
+                value={user.firstName}
                 onChange={handleInputChange}
                 name="firstName"
             />
@@ -57,7 +55,7 @@ const RegisterTrainer = () => {
                 type="text"
                 id="lastName"
                 required
-                value={trainer.lastName}
+                value={user.lastName}
                 onChange={handleInputChange}
                 name="lastName"
             />
@@ -68,7 +66,7 @@ const RegisterTrainer = () => {
                 type="text"
                 id="userName"
                 required
-                value={trainer.userName}
+                value={user.userName}
                 onChange={handleInputChange}
                 name="userName"
             />
@@ -79,7 +77,7 @@ const RegisterTrainer = () => {
                 type="text"
                 id="password"
                 required
-                value={trainer.password}
+                value={user.password}
                 onChange={handleInputChange}
                 name="password"
             />
@@ -90,37 +88,26 @@ const RegisterTrainer = () => {
                 type="text"
                 id="repeatPassWord"
                 required
-                value={trainer.repeatPassword}
+                value={user.repeatPassword}
                 onChange={handleInputChange}
                 name="repeatPassWord"
             />
             </div>
-            <div className="form-group">
-            <label htmlFor='credentials'>Credentials</label>
-            <input
-                type="text"
-                id="credentials"
-                required
-                value={trainer.credentials}
-                onChange={handleInputChange}
-                name="credentials"
-            />
             <div className="form-group">
             <label htmlFor='imageUrl'>Picture</label>
             <input
                 type="text"
                 id="imageUrl"
                 required
-                value={trainer.imageUrl}
+                value={user.imageUrl}
                 onChange={handleInputChange}
                 name="imageUrl"
             />
             </div>
             <br/>
-            <button onClick={saveTrainer} className="btn btn-success">Submit</button>
+            <button onClick={saveUser} className="btn btn-success">Submit</button>
             </div>
-        </div>
      );
 }
  
-export default RegisterTrainer;
+export default RegisterUser;
