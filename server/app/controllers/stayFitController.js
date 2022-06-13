@@ -38,7 +38,63 @@ exports.findAll = (req, res) => {
         res.status(500).send({
             message: err.message || "Error occured trying to retrieve exercises."
         })
+    });
+};
+
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+  Exercise.findById(id)
+  .then(data => {
+    if (!data)
+      res.status(404).send({ message: "Not found Exercise with id " + id });
+    else res.send(data);  
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .send({ message: "Error retrieving Exercise with id=" + id })
+  });
+};
+
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update cannot be empty!"
+    });
+  }
+  const id = req.params.id;
+  Exercise.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Exercise with id=${id}. Maybe Exercise was not found!`
+        });
+      } else res.send({ message: "Exercise was updated successfully."});
     })
-}
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Exercise with id=" + id
+      });
+    });
+};
 
-
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  Exercise.findByIdAndRemove(id)
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot delete Exercise with id=${id}. Maybe Exercise was not found!`
+        });
+      } else {
+        res.send({
+          message: "Exercise was deleted successfully!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Exercise with id=" + id
+      });
+    }); 
+};
