@@ -12,6 +12,7 @@ exports.create = (req, res) => {
         userName: req.body.userName,
         password: req.body.password,
         credentials: req.body.credentials,
+        imageUrl: req.body.imageUrl
     })
    trainer
     .save(trainer)

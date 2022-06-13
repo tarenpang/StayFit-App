@@ -6,6 +6,7 @@ module.exports = mongoose => {
             userName: String,
             password: String,
             credentials: String,
+            imageUrl: String
         },
         {timeStamps: true}
     );
