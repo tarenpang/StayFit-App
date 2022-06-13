@@ -10,9 +10,9 @@ const RegisterTrainer = () => {
         credentials: "",
         imageUrl: ""
     }
-    const [trainer, setTrainer] = useState([initialTrainerState]);
+    const [trainer, setTrainer] = useState(initialTrainerState);
 
-    const handleInputChange = event => {
+    const handleInputChange = async (event) => {
         event.preventDefault();
         const {name, value} = event.target;
         setTrainer({...trainer, [name]: value});
@@ -88,7 +88,7 @@ const RegisterTrainer = () => {
             <label htmlFor='repeatPassword'>Repeat Password</label>
             <input
                 type="text"
-                id="repeatPassWord"
+                id="repeatPassword"
                 required
                 value={trainer.repeatPassword}
                 onChange={handleInputChange}
