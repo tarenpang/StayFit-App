@@ -47,13 +47,20 @@ function LandingPage(props) {
             <Paper>
             <h2>{props.item.name}</h2>
             <p>{props.item.description}</p>
-            <img object-fit="cover"
-            display="block" height="100%" maxHeight="300px" width="100%" overflow="hidden" src={props.item.image}></img>
+            <img object-fit="cover" display="block" height="100%" maxHeight="300px" width="100%" overflow="hidden"  src={props.item.image}></img>
             </Paper>
+            
+            
+            
             <div style={{margin: 'auto', textAlign: 'center'}}>
               <Link to="/mainpage" style={{display: 'inline-block', textDecoration: "none"}}>
                 <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Enter!</Button>
               </Link>
+              
+              {/* <Button component={Link} to='/login' className="CheckButton" variant="text" style={{display: "block", justifyContent: "center", margin: "auto", marginTop:"10px"}}>
+              Login
+              </Button> */}
+
               <Link to="/login" style={{display: 'block', textDecoration: "none"}}>
                 <Button className="CheckButton" variant="textd" style={{marginTop: "10px"}}>Login</Button>
               </Link>
