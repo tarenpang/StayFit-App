@@ -160,6 +160,8 @@ const UpdateInfo = () => {
                 name="bmi"
             />
             </div>
+            <br/>
+            <button onclick={saveUserInfo}>Submit</button>
         </div>
     )
 }

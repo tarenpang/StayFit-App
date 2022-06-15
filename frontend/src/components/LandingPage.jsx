@@ -4,15 +4,15 @@ import Button  from "@mui/material/Button";
 import Intro from "./Intro";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Delete from '@mui/icons-material/Delete';
-import {Link, Outlet} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function LandingPage(props) {
 
     var items = [
         {
-            name: "Decline Bench Press",
+            name: "Bench Press",
             description: "Learn proper technique & form!",
-            image: "https://cdn.shopify.com/s/files/1/1633/7705/articles/smith_machine_bench_press_2000x.jpg?v=1634818655",
+            image: "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/01/Intermediate-bench-press-program.jpg?resize=2048%2C1365&ssl=1",
         },
         {
             name: "Pull ups",
@@ -50,16 +50,14 @@ function LandingPage(props) {
             <img object-fit="cover"
             display="block" height="100%" maxHeight="300px" width="100%" overflow="hidden" src={props.item.image}></img>
             </Paper>
-            
-            
-            
-            <Button component={Link} to='/mainpage' className="CheckButton" variant="contained" style={{display: "flex", justifyContent: "center", margin: "auto", marginTop:"10px"}}>
-            Enter! 
-            </Button>
-            
-            <Button component={Link} to='/login' className="CheckButton" variant="contained" style={{display: "flex", justifyContent: "center", margin: "auto", marginTop:"10px"}}>
-            Login
-            </Button>
+            <div style={{margin: 'auto', textAlign: 'center'}}>
+              <Link to="/mainpage" style={{display: 'inline-block', textDecoration: "none"}}>
+                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Enter!</Button>
+              </Link>
+              <Link to="/login" style={{display: 'block', textDecoration: "none"}}>
+                <Button className="CheckButton" variant="textd" style={{marginTop: "10px"}}>Login</Button>
+              </Link>
+            </div>
             <Intro/>
       </div>
     );
