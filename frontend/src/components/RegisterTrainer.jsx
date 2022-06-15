@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import stayFitDataService from '../services/stayFitDataService'; 
+import stayFitDataService from '../services/stayFitDataService';
 
 const RegisterTrainer = () => {
     const initialTrainerState = {
@@ -107,6 +107,17 @@ const RegisterTrainer = () => {
             />
             <div className="form-group">
             <label htmlFor='imageUrl'>Picture</label>
+            <input
+                type="text"
+                id="imageUrl"
+                required
+                value={trainer.imageUrl}
+                onChange={handleInputChange}
+                name="imageUrl"
+            />
+            </div>
+            <div className="form-group">
+            <label htmlFor='imageUrl'>Clients</label>
             <input
                 type="text"
                 id="imageUrl"

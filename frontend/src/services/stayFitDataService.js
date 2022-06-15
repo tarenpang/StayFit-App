@@ -28,6 +28,10 @@ const findUser = (id) => {
   return http.get("/users", id);
 };
 
+const loginUser = (data) => {
+  return http.post("/users/login", data)
+}
+
 const stayFitDataService = {
   getAll,
   create,
@@ -36,6 +40,7 @@ const stayFitDataService = {
   getAllUsers,
   createUser,
   findUser,
+  loginUser
 };
 
 export default stayFitDataService;

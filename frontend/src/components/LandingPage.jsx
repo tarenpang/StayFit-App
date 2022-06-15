@@ -5,9 +5,10 @@ import Intro from "./Intro";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Delete from '@mui/icons-material/Delete';
 import {Link, Outlet} from 'react-router-dom';
+import {useMediaQuery} from '../customHooks/useMediaQuery';
 
 function LandingPage(props) {
-
+    
     var items = [
         {
             name: "Bench Press",
@@ -25,8 +26,8 @@ function LandingPage(props) {
             image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/young-woman-doing-squats-on-a-road-at-sunset-royalty-free-image-1645654296.jpg",
         },
         {
-            name: "Follow, track, observe your vital signs",
-            description: "Track, and log your vital signs to share with doctors, and health care professionals to optimize and empower users!",
+            name: "Follow & track your vital signs",
+            description: "Track, and log vital signs to share with health care professionals to optimize and empower users!",
             image: "https://agurgentcare.com/wp-content/uploads/2021/04/what-are-normal-vitals.jpeg",
         }
     ]
@@ -41,34 +42,50 @@ function LandingPage(props) {
     )
 }
     function Item(props) {
+      const isPhone = useMediaQuery('(max-width: 400px)');
+      const isWide = useMediaQuery('(min-width: 1024px)');
+
         return (
         <div className="landingPage">
+          <div style={{position: 'relative'}}>
             <h1 style={{textAlign: "center"}}>StayFit <FitnessCenterIcon style={{color:"black"}}/></h1>
             <Paper>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
+            <h2 style={{
+              position: 'absolute',
+              width: '75%',
+              textAlign: 'center',
+              color: 'white',
+              textShadow: '1px 1px rgba(0,0,0,0.5)',
+              top: 49,
+              left: '50%',
+              transform: 'translate(-50%)'
+            }}>{props.item.name}</h2>
+            <h3 style={{
+              position: 'absolute',
+              width: '75%',
+              textAlign: 'center',
+              color: 'white',
+              textShadow: '1.5px 1.5px rgba(0,0,0,0.6)',
+              bottom: isPhone ? 115 : 145,
+              bottom: isWide ? 145 : 345,
+              left: '50%',
+              transform: 'translate(-50%)',
+              '@media (max-width: 400px)': {}
+            }}>{props.item.description}</h3>
             <img object-fit="cover" display="block" height="100%" maxHeight="300px" width="100%" overflow="hidden"  src={props.item.image}></img>
-            </Paper>
-            
-            
-            
+            </Paper>                     
             <div style={{margin: 'auto', textAlign: 'center'}}>
               <Link to="/mainpage" style={{display: 'inline-block', textDecoration: "none"}}>
                 <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Enter!</Button>
               </Link>
-              
-              {/* <Button component={Link} to='/login' className="CheckButton" variant="text" style={{display: "block", justifyContent: "center", margin: "auto", marginTop:"10px"}}>
-              Login
-              </Button> */}
-
               <Link to="/login" style={{display: 'block', textDecoration: "none"}}>
                 <Button className="CheckButton" variant="textd" style={{marginTop: "10px"}}>Login</Button>
               </Link>
             </div>
             <Intro/>
+          </div>
       </div>
     );
 };
-
 
 export default LandingPage;
