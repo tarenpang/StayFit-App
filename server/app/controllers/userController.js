@@ -1,11 +1,24 @@
 const db = require('../models');
-const User = db.users;
+const User = require('../models/User');
+const generateToken = require('../config/generateToken');
+const asyncHandler = require("express-async-handler");
 
-exports.create = (req, res) => {
-    if(!req.body.firstName) {
+
+//Register new Users
+exports.create = asyncHandler( async(req, res) => {
+  const { firstName, lastName, userName, password, imageUrl } = req.body
+    
+  if(!firstName || !lastName || !userName || !password) {
         res.status(400).send({message:"Cannot be empty"})
         return
     }
+
+    const userExists = await User.findOne({ userName });
+
+    if(userExists) {
+      res.status(400).send({message:"User already exists!"})
+    }
+    
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -18,12 +31,34 @@ exports.create = (req, res) => {
     .then(data => {
         res.send(data)
     })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Error occured creating User."
-        })
-    })
-}
+    if(user) {
+      res.status(201).json({
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(400).send({message:"User not found"})
+    }
+})
+
+exports.login = asyncHandler(async (req, res) => {
+  const { userName, password } = req.body;
+
+  const user = await User.findOne({userName});
+
+  if(user && (await user.matchPassword(password))){
+    res.json({
+      userName: user.userName,
+      password: user.password,
+      token: generateToken(user._id)
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid userName or password")
+  }
+})
 
 exports.findAll = (req, res) => {
     const firstName = req.query.firstName;
