@@ -1,13 +1,16 @@
+const Exercise = require('./Exercise')
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
-const userSchema = new Schema({
-    firstName: {type:"String", required: true},
-    lastName: {type:"String", required: true},
-    userName: {type:"String", required: true, unique: true},
-    password: {type:"String", required: true},
+var userSchema = new Schema({
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
+    userName: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
     imageUrl: String,
-    exercises: [],
+    exercises: [{type: mongoose.Schema.Types.ObjectId,
+      ref: 'Exercise',
+    }],
     trainerId: Number,
     age: Number,
     height: Number,
@@ -21,7 +24,7 @@ const userSchema = new Schema({
     bmi: Number,
     favorites: [],
   },
-    {timeStamps: true}
+    {timestamps: true}
 );
 
 module.exports = mongoose.model('user', userSchema);

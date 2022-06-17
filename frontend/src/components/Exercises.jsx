@@ -6,17 +6,16 @@ import { Stack, ImageList, ImageListItem, Box } from '@mui/material'
 
 const ExerciseList = () => {
     const [exercises, setExercises] = useState([]);
-    console.log(exercises); 
+    // console.log(exercises); 
     useEffect(() => {
         retrieveExercises();
     }, []);
     
-    const retrieveExercises = () => {
-        stayFitDataService.getAll()
+    const retrieveExercises = async () => {
+        await stayFitDataService.getAll()
         .then(response => {
             setExercises(response.data);
-            console.log("response data is: ")
-            console.log(response.data);
+            // console.log("response data: ", response.data)
         })
         .catch(e => {
             console.log(e)

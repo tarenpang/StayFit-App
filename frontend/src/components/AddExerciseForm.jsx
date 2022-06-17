@@ -33,7 +33,7 @@ const AddExerciseForm = () => {
         stayFitDataService.create(data)
             .then(response => {
                 setExercise(initialExerciseState); 
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(e => {
                 console.log(e)
@@ -41,6 +41,7 @@ const AddExerciseForm = () => {
     }
     return ( 
         <div className="submit-form">
+            <h1>Add New Exercise</h1>
             <div className="form-group">
             <label htmlFor='name'>Name</label>
             <input

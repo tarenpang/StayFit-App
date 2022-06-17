@@ -66,7 +66,7 @@ function LandingPage(props) {
               bottom: 245,
               left: '50%',
               transform: 'translate(-50%)',
-              '@media (max-width: 400px)': {}
+              '@media (maxWidth: 400px)': {}
             }}>{props.item.description}</h3>
             <img object-fit="cover" display="block" height="100%" maxHeight="300px" width="100%" overflow="hidden"  src={props.item.image}></img>
             </Paper>                     

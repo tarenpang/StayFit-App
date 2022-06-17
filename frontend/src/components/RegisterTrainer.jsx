@@ -14,12 +14,12 @@ const RegisterTrainer = () => {
     }
     const [trainer, setTrainer] = useState(initialTrainerState);
 
-    const handleInputChange = async (event) => {
+    const handleInputChange = event => {
         event.preventDefault();
         const {name, value} = event.target;
         setTrainer({...trainer, [name]: value});
     }
-
+    
     const saveTrainer = () => {
         var data = {
             firstName: trainer.firstName,
@@ -29,15 +29,17 @@ const RegisterTrainer = () => {
             credentials: trainer.credentials,
             imageUrl: trainer.imageUrl
         }
-        stayFitDataService.createTrainer(data)
+         stayFitDataService.createTrainer(data)
         .then(response => {
-            console.log(response.data); 
+            console.log(response)
             setTrainer(initialTrainerState)
         })
         .catch(e => {
             console.log(e)
         })
     }
+
+    
 
     return ( 
         <div className="submit-form">

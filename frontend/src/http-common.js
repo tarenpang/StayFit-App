@@ -6,7 +6,7 @@ export default axios.create({
       "Content-Type": "application/json"
   },
   validateStatus: (status) => {
-  console.log(status)
+  console.log("Status is " + status)
     return true; 
   }
 })

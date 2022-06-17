@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const User = require('./User');
 const { Schema } = require('mongoose');
 
-  const trainerSchema = new Schema(
+  var trainerSchema = new Schema(
     {
-      firstName: {type:"String", required: true},
-      lastName: {type:"String", required: true},
-      userName: {type:"String", required: true, unique: true},
-      password: {type:"String", required: true},
+      firstName: {type: String, required: true},
+      lastName: {type: String, required: true},
+      userName: {type: String, required: true, unique: true},
+      password: {type: String, required: true},
       credentials: String,
       imageUrl: String,
       clients: [{
@@ -15,7 +15,7 @@ const { Schema } = require('mongoose');
         ref: 'User',
       }],
     },
-    { timeStamps: true }
+    { timestamps: true }
   );
 
 module.exports = mongoose.model("trainer", trainerSchema);
