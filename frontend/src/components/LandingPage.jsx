@@ -4,8 +4,7 @@ import Button  from "@mui/material/Button";
 import Intro from "./Intro";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Delete from '@mui/icons-material/Delete';
-import {Link, Outlet} from 'react-router-dom';
-import {useMediaQuery} from '../customHooks/useMediaQuery';
+import {Link} from 'react-router-dom';
 
 function LandingPage(props) {
     
@@ -42,13 +41,11 @@ function LandingPage(props) {
     )
 }
     function Item(props) {
-      const isPhone = useMediaQuery('(max-width: 400px)');
-      const isWide = useMediaQuery('(min-width: 1024px)');
 
         return (
         <div className="landingPage">
           <div style={{position: 'relative'}}>
-            <h1 style={{textAlign: "center"}}>StayFit <FitnessCenterIcon style={{color:"black"}}/></h1>
+            <h1 style={{textAlign: "center", color:"#0b4c8a"}}>StayFit <FitnessCenterIcon style={{color:"#0b4c8a"}}/></h1>
             <Paper>
             <h2 style={{
               position: 'absolute',
@@ -66,8 +63,7 @@ function LandingPage(props) {
               textAlign: 'center',
               color: 'white',
               textShadow: '1.5px 1.5px rgba(0,0,0,0.6)',
-              bottom: isPhone ? 115 : 145,
-              bottom: isWide ? 145 : 345,
+              bottom: 245,
               left: '50%',
               transform: 'translate(-50%)',
               '@media (max-width: 400px)': {}

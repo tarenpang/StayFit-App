@@ -1,5 +1,5 @@
 const db = require('../models');
-const Exercise = db.exercises;
+const Exercise = require('../models/Exercise');
 
 exports.create = (req, res) => {
     if(!req.body.name) {

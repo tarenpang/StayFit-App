@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
+import Button from "@mui/material/Button";
 
 const AddExerciseForm = () => {
     const initialExerciseState = {
@@ -117,7 +118,7 @@ const AddExerciseForm = () => {
                 name="imageUrl"
             />
             <br/>
-            <button onClick={saveExercise} className="btn btn-success">Submit</button>
+            <Button onClick={saveExercise} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
             </div>
         </div>
      );

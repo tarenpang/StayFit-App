@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const User = require('./User');
+const { Schema } = require('mongoose');
 
-module.exports = (mongoose) => {
-  var trainerSchema = mongoose.Schema(
+  const trainerSchema = new Schema(
     {
-      firstName: String,
-      lastName: String,
-      userName: String,
-      password: String,
+      firstName: {type:"String", required: true},
+      lastName: {type:"String", required: true},
+      userName: {type:"String", required: true, unique: true},
+      password: {type:"String", required: true},
       credentials: String,
       imageUrl: String,
       clients: [{
@@ -18,14 +18,4 @@ module.exports = (mongoose) => {
     { timeStamps: true }
   );
 
-  trainerSchema.pre("save", async function (next) {
-    if(!this.isModified) {
-        next()
-    }
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt); 
-})
-
-  const Trainer = mongoose.model("trainer", trainerSchema);
-  return Trainer;
-};
+module.exports = mongoose.model("trainer", trainerSchema);

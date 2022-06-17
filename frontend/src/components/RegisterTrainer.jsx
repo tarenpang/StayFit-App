@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
+import Button from "@mui/material/Button";
 
 const RegisterTrainer = () => {
     const initialTrainerState = {
@@ -7,8 +8,9 @@ const RegisterTrainer = () => {
         lastName: "",
         userName: "",
         password: "",
+        repeatPassword: "",
         credentials: "",
-        imageUrl: ""
+        imageUrl: "",
     }
     const [trainer, setTrainer] = useState(initialTrainerState);
 
@@ -92,7 +94,7 @@ const RegisterTrainer = () => {
                 required
                 value={trainer.repeatPassword}
                 onChange={handleInputChange}
-                name="repeatPassWord"
+                name="repeatPassword"
             />
             </div>
             <div className="form-group">
@@ -116,19 +118,8 @@ const RegisterTrainer = () => {
                 name="imageUrl"
             />
             </div>
-            <div className="form-group">
-            <label htmlFor='imageUrl'>Clients</label>
-            <input
-                type="text"
-                id="imageUrl"
-                required
-                value={trainer.imageUrl}
-                onChange={handleInputChange}
-                name="imageUrl"
-            />
-            </div>
             <br/>
-            <button onClick={saveTrainer} className="btn btn-success">Submit</button>
+            <Button onClick={saveTrainer} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
             </div>
         </div>
      );

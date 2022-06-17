@@ -3,6 +3,7 @@ import stayFitDataService from '../services/stayFitDataService';
 import TemporaryDrawer from './TemporaryDrawer';
 import ResponsiveAppBar from './Navbar';
 import { Stack, ImageList, ImageListItem, Box } from '@mui/material'
+// import ImageListExercises from './MuiImageList';
 
 const ExerciseList = () => {
     const [exercises, setExercises] = useState([]);

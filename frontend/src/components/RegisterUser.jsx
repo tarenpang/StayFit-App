@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import stayFitDataService from '../services/stayFitDataService'; 
+import stayFitDataService from '../services/stayFitDataService';
+import Button from "@mui/material/Button";  
 
 const RegisterUser = () => {
     const initialUserState = {
@@ -7,6 +8,7 @@ const RegisterUser = () => {
         lastName: "",
         userName: "",
         password: "",
+        repeatPassword: "",
         imageUrl: "",
     }
     const [user, setUser] = useState([initialUserState]);
@@ -105,7 +107,7 @@ const RegisterUser = () => {
             />
             </div>
             <br/>
-            <button onClick={saveUser} className="btn btn-success">Submit</button>
+            <Button onClick={saveUser} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
             </div>
      );
 }

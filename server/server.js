@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:5002",
 };
 
 const db = require("./app/models");
@@ -27,7 +27,7 @@ db.mongoose
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5001;
 
 require("./app/routes/stayFitRoutes")(app);
 require("./app/routes/trainerRoutes")(app);

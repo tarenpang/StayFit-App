@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import LandingPage from "./components/LandingPage";
 import MainPage from "./components/MainPage";
+import Exercises from "./components/Exercises";
 import Login from "./components/Login";
 import TrainerDashboard from "./components/TrainerDashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<App />}></Route>
         <Route path="/landingpage" element={<LandingPage />}></Route>
         <Route path="/mainpage" element={<MainPage />}></Route>
+        <Route path="/exercises" element={<Exercises />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/trainerdashboard" element={<TrainerDashboard />}></Route>
       </Routes>

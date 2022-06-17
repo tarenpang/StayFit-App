@@ -4,14 +4,14 @@ import ExerciseList from "./Exercises";
 import AddExerciseForm from "./AddExerciseForm";
 import RegisterTrainer from "./RegisterTrainer";
 import RegisterUser from "./RegisterUser";
+import Announcements from "./AnnouncementBar";
 
 const MainPage = () => {
     return (  
       <div className="mainpage">
           <ResponsiveAppBar/>
-          <h1 style={{textAlign: 'center'}}>Announcements</h1>
           {/* <BottomAppBar/> */}
-          <ExerciseList/>
+          {/* <ExerciseList/> */}
           <AddExerciseForm/>
           <RegisterTrainer/>
           <RegisterUser/>

@@ -1,6 +1,8 @@
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
-        {
+const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
+
+
+const exerciseSchema = new Schema({
             name: String,
             description: String, 
             category: String,
@@ -8,10 +10,8 @@ module.exports = mongoose => {
             sets: Number,
             frequency: Number,
             imageUrl: String,
-        },
-        {timeStamps: true}
-    );
+            },
+            { timeStamps: true }
+          );
 
-    const Exercise = mongoose.model('exercise', schema)
-    return Exercise
-}
+    module.exports = mongoose.model("exercise", exerciseSchema);
