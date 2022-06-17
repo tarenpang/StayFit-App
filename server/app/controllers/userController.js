@@ -2,11 +2,12 @@ const db = require('../models');
 const User = require('../models/User');
 const generateToken = require('../config/generateToken');
 const asyncHandler = require("express-async-handler");
-
+const bcrypt = require("bcryptjs");
+const saltRounds = +process.env.SALT;
 
 //Register new Users
 exports.create = asyncHandler( async(req, res) => {
-  const { firstName, lastName, userName, password, imageUrl } = req.body
+  const { firstName, lastName, userName, password, repeatPassword, imageUrl } = req.body
     
   if(!firstName || !lastName || !userName || !password) {
         res.status(400).send({message:"Cannot be empty"})
@@ -18,13 +19,20 @@ exports.create = asyncHandler( async(req, res) => {
     if(userExists) {
       res.status(400).send({message:"User already exists!"})
     }
+
+    if(password != repeatPassword) {
+      res.status(400).send({message:"Passwords do not match!"})
+    }
+
+    const salt = bcrypt.genSaltSync(saltRounds); 
+    const hash = bcrypt.hashSync(password, salt); 
     
     const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        userName: req.body.userName,
-        password: req.body.password,
-        imageUrl: req.body.imageUrl
+        firstName: firstName,
+        lastName: lastName,
+        userName: userName,
+        password: hash,
+        imageUrl: imageUrl
     })
     user
     .save(user)

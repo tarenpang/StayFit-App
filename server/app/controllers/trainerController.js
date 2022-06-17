@@ -1,18 +1,40 @@
 const db = require('../models');
-const Trainer = db.trainers;
+const Trainer = require("../models/Trainer");
+const generateToken = require('../config/generateToken');
+const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcryptjs");
+const saltRounds = +process.env.SALT;
 
-exports.create = (req, res) => {
-    // if(!req.body.firstName) {
-    //     res.status(400).send({message: "Cannot be empty"})
-    //     return
-    // }
+exports.create = asyncHandler(async(req, res) => {
+  const { firstName, lastName, userName, password, repeatPassword, credentials, imageUrl } = req.body;
+  
+  if(!firstName || !lastName || !userName || !password || !credentials) {
+    res.status(400).send({message: "Cannot be empty!"})
+    return
+  }
+
+    const trainerExists = await Trainer.findOne({userName}); 
+
+  if(trainerExists) {
+    res.status(400).send({message:"User already exists!"})
+    return
+  }
+  
+  if(password != repeatPassword) {
+    res.status(400).send({message: "Passwords do not match!"})
+    return
+  }
+
+  const salt = bcrypt.genSaltSync(saltRounds); 
+  const hash = bcrypt.hashSync(password, salt);
+
     const trainer = new Trainer({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName, 
-        userName: req.body.userName,
-        password: req.body.password,
-        credentials: req.body.credentials,
-        imageUrl: req.body.imageUrl
+        firstName: firstName,
+        lastName: lastName, 
+        userName: userName,
+        password: hash, 
+        credentials: credentials,
+        imageUrl: imageUrl
     })
    trainer
     .save(trainer)
@@ -24,7 +46,7 @@ exports.create = (req, res) => {
             message: err.message || "Error occured creating trainer."
         })
     })
-};
+});
 
 exports.findAll = (req, res) => {
     const firstName = req.query.firstName;
