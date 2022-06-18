@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
+const Joi = require('joi'); 
 
 
 var exerciseSchema = new Schema({

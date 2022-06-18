@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function SponsorBar() {
     return (
       <React.Fragment>

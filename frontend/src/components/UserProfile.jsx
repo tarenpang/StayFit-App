@@ -1,6 +1,8 @@
+import { Button } from '@chakra-ui/button';
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
-
+import ResponsiveAppBar from "./Navbar";
 
 const UpdateInfo = () => {
     const initialUserInfoState = {
@@ -48,6 +50,8 @@ const UpdateInfo = () => {
     }
 
     return (
+        <>
+        <ResponsiveAppBar/>
         <div className="submit-form">
             <h1>Update User Info</h1>
             <div className="form-group">
@@ -161,8 +165,12 @@ const UpdateInfo = () => {
             />
             </div>
             <br/>
-            <button onclick={saveUserInfo}>Submit</button>
+            <Link to="/userlogin" style={{display: 'inline-block', textDecoration: "none"}}>
+            <Button onclick={saveUserInfo}>Submit</Button>
+              </Link>
+            
         </div>
+        </>
     )
 }
 

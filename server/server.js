@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+// const { notFound, errorHandler } = require("../server/app/middleware/errorMiddleware"); 
 
 var corsOptions = {
   origin: "http://localhost:5002",
@@ -27,6 +28,9 @@ db.mongoose
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(notFound);
+// app.use(errorHandler); 
+
 const PORT = process.env.PORT || 5001;
 
 require("./app/routes/stayFitRoutes")(app);

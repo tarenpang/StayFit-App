@@ -44,10 +44,10 @@ exports.create = asyncHandler(async(req, res) => {
 
     if(trainer) {
       res.status(201).json({
-        _id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        token: generateToken(user._id),
+        _id: trainer._id,
+        firstName: trainer.firstName,
+        lastName: trainer.lastName,
+        token: generateToken(trainer._id),
       });
     } else {
       res.status(400).send({message:"User not found"})

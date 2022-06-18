@@ -41,7 +41,7 @@ exports.create = asyncHandler( async(req, res) => {
     })
 
     if(user) {
-      res.status(201).json({
+      res.json({
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -61,18 +61,19 @@ exports.create = asyncHandler( async(req, res) => {
 
 exports.login = asyncHandler(async (req, res) => {
   const { userName, password } = req.body;
+  console.log(userName, password); 
 
   const user = await User.findOne({userName});
 
   if(user && (await user.matchPassword(password))){
     res.json({
+      _id: user._id, 
       userName: user.userName,
-      password: user.password,
       token: generateToken(user._id)
     });
   } else {
     res.status(401);
-    throw new Error("Invalid userName or password")
+    throw new Error("Invalid username or password")
   }
 })
 

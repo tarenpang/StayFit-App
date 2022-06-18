@@ -5,10 +5,10 @@ export default axios.create({
   headers: {
       "Content-Type": "application/json"
   },
-  validateStatus: (status) => {
-  console.log("Status is " + status)
-    return true; 
-  }
+  // validateStatus: (status) => {
+  // console.log("Status is " + status)
+  //   return true; 
+  // }
 })
 ; 
 

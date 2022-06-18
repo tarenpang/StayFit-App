@@ -3,14 +3,10 @@ import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import React, { useState } from "react";
-import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
 import ResponsiveAppBar from './Navbar'
-// import styles from "./index.module.css";
-// import Button from "../Button";
-// import Input from "../Input";
 
 const Login = () => { 
   const initialLoginState = {
@@ -50,16 +46,14 @@ const Login = () => {
             setLoading(false);
             return;
           }
-
           try {
             var data = {
               userName: loginInfo.userName,
               password: loginInfo.password
             }
 
-            await stayFitDataService.loginUser(data)
+            stayFitDataService.loginUser(data)
             .then(response => {
-              console.log(response.data);
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -68,10 +62,9 @@ const Login = () => {
                 position: "bottom",
               });
               setLoading(false);
-              navigate.push("/"); // redirect to UserDashboard
+              // navigate.push("/"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
-
           } catch (error) {
             console.log('error is' + error);
             toast({
@@ -90,7 +83,7 @@ const Login = () => {
           <>
           <ResponsiveAppBar/>
             <VStack spacing="10px">
-              <FormControl id="userName" isRequired>
+              <FormControl id="userName" isRequired sx={{mt: "30px"}}>
                 <FormLabel>Username</FormLabel>
                 <input
                   type="text"
@@ -103,7 +96,6 @@ const Login = () => {
                   // onChange={(e) => SetUserName(e.target.value)}
                 />
               </FormControl>
-
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
@@ -117,31 +109,18 @@ const Login = () => {
                     placeholder="Enter Password"
                     // onChange={(e) => setPassword(e.target.value)}
                   />
-                  {/* <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick} className="btn btn-success">
-                      {show ? "Hide" : "Show"}
-                    </Button>
-                  </InputRightElement> */}
-                </InputGroup>
-                </FormControl>
-
-                <FormControl id="password" isRequired>  
-                <FormLabel>Retype Password</FormLabel>
-                <InputGroup>
-                  <input
-                    type="text"
-                    id="retypePassword"
-                    required
-                    value={loginInfo.repeatPassword}
-                    onChange={handleInputChange}
-                    name="retypePassword"
-                    placeholder="Retype Password"
-                    // onChange={(e) => setPassword(e.target.value)}
-                  />
                 </InputGroup>
               </FormControl>
               <button onClick={submitHandler} className="btn btn-success">Submit</button>
 
+              <br></br>
+              <h1>New user? Register</h1>
+              <Link to="/registerUser" style={{display: 'inline-block', textDecoration: "none"}}>
+                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Register user!</Button>
+              </Link>
+              <Link to="/trainerlogin" style={{display: 'inline-block', textDecoration: "none"}}>
+                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Trainer Login</Button>
+              </Link>
             </VStack>
           </>                   
         );

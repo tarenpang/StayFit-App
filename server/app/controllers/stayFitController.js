@@ -35,6 +35,7 @@ exports.findAll = (req, res) => {
         res.send(data)
     })
     .catch(err => {
+      console.log("error is:")
         res.status(500).send({
             message: err.message || "Error occured trying to retrieve exercises."
         })

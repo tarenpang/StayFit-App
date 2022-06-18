@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const User = require('./User');
+const Exercise = require('./Exercise'); 
 const { Schema } = require('mongoose');
+const Joi = require('joi'); 
 
   var trainerSchema = new Schema(
     {
@@ -13,6 +15,10 @@ const { Schema } = require('mongoose');
       clients: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+      }],
+      exercises: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Exercise',
       }],
     },
     { timestamps: true }
