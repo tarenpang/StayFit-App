@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
 import Button from "@mui/material/Button";
+import ResponsiveAppBar from './Navbar';
 
 const AddExerciseForm = () => {
     const initialExerciseState = {
@@ -33,14 +34,17 @@ const AddExerciseForm = () => {
         stayFitDataService.create(data)
             .then(response => {
                 setExercise(initialExerciseState); 
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(e => {
                 console.log(e)
             })
     }
-    return ( 
+    return (
+        <> 
+        <ResponsiveAppBar/>
         <div className="submit-form">
+            <h1>Add New Exercise</h1>
             <div className="form-group">
             <label htmlFor='name'>Name</label>
             <input
@@ -121,6 +125,7 @@ const AddExerciseForm = () => {
             <Button onClick={saveExercise} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
             </div>
         </div>
+        </>
      );
 }
  

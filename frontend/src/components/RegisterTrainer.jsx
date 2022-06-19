@@ -14,13 +14,14 @@ const RegisterTrainer = () => {
     }
     const [trainer, setTrainer] = useState(initialTrainerState);
 
-    const handleInputChange = async (event) => {
+    const handleInputChange = event => {
         event.preventDefault();
         const {name, value} = event.target;
         setTrainer({...trainer, [name]: value});
     }
-
+    
     const saveTrainer = () => {
+        console.log("save trainer activated")
         var data = {
             firstName: trainer.firstName,
             lastName: trainer.lastName,
@@ -29,15 +30,19 @@ const RegisterTrainer = () => {
             credentials: trainer.credentials,
             imageUrl: trainer.imageUrl
         }
-        stayFitDataService.createTrainer(data)
+        console.log(data); 
+         stayFitDataService.createTrainer(data)
         .then(response => {
-            console.log(response.data); 
+            console.log("CRUD activated"); 
+            console.log(response.data)
             setTrainer(initialTrainerState)
         })
         .catch(e => {
             console.log(e)
         })
     }
+
+    
 
     return ( 
         <div className="submit-form">

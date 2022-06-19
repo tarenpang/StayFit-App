@@ -18,8 +18,9 @@ const RegisterUser = () => {
         const {name, value} = event.target;
         setUser({...user, [name]: value});
     }
-
+    
     const saveUser = () => {
+       console.log("save user activated")
         var data = {
             firstName: user.firstName,
             lastName: user.lastName,
@@ -29,12 +30,14 @@ const RegisterUser = () => {
         }
         stayFitDataService.createUser(data)
         .then(response => {
-            console.log(response.data); 
+            console.log("CRUD activated");
+            console.log(response)
             setUser(initialUserState)
         })
         .catch(e => {
             console.log(e)
         })
+    
     }
 
     return ( 
@@ -88,11 +91,11 @@ const RegisterUser = () => {
             <label htmlFor='repeatPassword'>Repeat Password</label>
             <input
                 type="text"
-                id="repeatPassWord"
+                id="repeatPassword"
                 required
                 value={user.repeatPassword}
                 onChange={handleInputChange}
-                name="repeatPassWord"
+                name="repeatPassword"
             />
             </div>
             <div className="form-group">

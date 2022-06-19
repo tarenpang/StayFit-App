@@ -8,7 +8,7 @@ const saltRounds = +process.env.SALT;
 //Register new Users
 exports.create = asyncHandler( async(req, res) => {
   const { firstName, lastName, userName, password, repeatPassword, imageUrl } = req.body
-    
+ 
   if(!firstName || !lastName || !userName || !password) {
         res.status(400).send({message:"Cannot be empty"})
         return
@@ -20,13 +20,13 @@ exports.create = asyncHandler( async(req, res) => {
       res.status(400).send({message:"User already exists!"})
     }
 
-    if(password != repeatPassword) {
+    if(password !== repeatPassword) {
       res.status(400).send({message:"Passwords do not match!"})
     }
 
     const salt = bcrypt.genSaltSync(saltRounds); 
     const hash = bcrypt.hashSync(password, salt); 
-    
+    try{
     const user = new User({
         firstName: firstName,
         lastName: lastName,
@@ -39,8 +39,9 @@ exports.create = asyncHandler( async(req, res) => {
     .then(data => {
         res.send(data)
     })
+
     if(user) {
-      res.status(201).json({
+      res.json({
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -49,22 +50,30 @@ exports.create = asyncHandler( async(req, res) => {
     } else {
       res.status(400).send({message:"User not found"})
     }
+  }catch(err){
+    console.log(err.response.status);
+    console.log(err.response.statusText);
+    console.log(err.message);
+    console.log(err.response.headers); 
+    console.log(err.response.data);
+}
 })
 
 exports.login = asyncHandler(async (req, res) => {
   const { userName, password } = req.body;
+  console.log(userName, password); 
 
   const user = await User.findOne({userName});
 
   if(user && (await user.matchPassword(password))){
     res.json({
+      _id: user._id, 
       userName: user.userName,
-      password: user.password,
       token: generateToken(user._id)
     });
   } else {
     res.status(401);
-    throw new Error("Invalid userName or password")
+    throw new Error("Invalid username or password")
   }
 })
 

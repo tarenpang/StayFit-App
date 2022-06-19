@@ -29,8 +29,20 @@ const findUser = (id) => {
 };
 
 const loginUser = (data) => {
-  return http.post("/users/login", data)
+  console.log("client side log in")
+  console.log(data)
+  const results = http.post("/usersLogin", data)
+  console.log(results);  
+  return http.post("/usersLogin", data)
 }
+
+const loginTrainer = (data) => {
+  return http.post("/trainersLogin", data)
+}
+
+const updateUser = (id, data) => {
+  return http.get("/users", data, id);
+};
 
 const stayFitDataService = {
   getAll,
@@ -40,7 +52,9 @@ const stayFitDataService = {
   getAllUsers,
   createUser,
   findUser,
-  loginUser
+  loginUser,
+  loginTrainer,
+  updateUser
 };
 
 export default stayFitDataService;

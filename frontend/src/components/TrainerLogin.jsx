@@ -1,11 +1,11 @@
-import { Button } from '@chakra-ui/button';
+import Button  from "@mui/material/Button";
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
 import ResponsiveAppBar from './Navbar'
 // import styles from "./index.module.css";
@@ -22,9 +22,10 @@ const Login = () => {
 
   const [loginInfo, setLoginInfo] = useState([initialLoginState]);
   // const [show, setShow] = useState(false);
-  // const [userName, SetUserName] = useState();
+  const [trainerName, SetTrainerName] = useState('');
   // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+  const [trainerLoggedIn, setTrainerLoggedIn] = useState(false)
 
   // const handleClick = () => setShow(!show);
   const toast = useToast();
@@ -57,7 +58,7 @@ const Login = () => {
               password: loginInfo.password
             }
 
-            await stayFitDataService.loginUser(data)
+            await stayFitDataService.loginTrainer(data)
             .then(response => {
               console.log(response.data);
               toast({
@@ -68,6 +69,8 @@ const Login = () => {
                 position: "bottom",
               });
               setLoading(false);
+              setTrainerLoggedIn(true); 
+              // setTrainerName(loginInfo.userName);
               navigate.push("/"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
@@ -83,6 +86,7 @@ const Login = () => {
               position: "bottom",
             });
             setLoading(false);
+            setTrainerLoggedIn(false);
           }
         }
   
@@ -90,7 +94,7 @@ const Login = () => {
           <>
           <ResponsiveAppBar/>
             <VStack spacing="10px">
-              <FormControl id="userName" isRequired>
+              <FormControl id="userName" isRequired sx={{mt: "30px"}}>
                 <FormLabel>Username</FormLabel>
                 <input
                   type="text"
@@ -124,24 +128,13 @@ const Login = () => {
                   </InputRightElement> */}
                 </InputGroup>
                 </FormControl>
-
-                <FormControl id="password" isRequired>  
-                <FormLabel>Retype Password</FormLabel>
-                <InputGroup>
-                  <input
-                    type="text"
-                    id="retypePassword"
-                    required
-                    value={loginInfo.repeatPassword}
-                    onChange={handleInputChange}
-                    name="retypePassword"
-                    placeholder="Retype Password"
-                    // onChange={(e) => setPassword(e.target.value)}
-                  />
-                </InputGroup>
-              </FormControl>
-              <button onClick={submitHandler} className="btn btn-success">Submit</button>
-
+                <br></br>
+              <Button onClick={submitHandler} className="CheckButton" variant="contained">Submit</Button>
+              <br></br>
+              <h5>New Trainer? Please register...</h5>
+              <Link to="/registerTrainer" style={{display: 'inline-block', textDecoration: "none"}}>
+                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Register as a Trainer</Button>
+              </Link>
             </VStack>
           </>                   
         );

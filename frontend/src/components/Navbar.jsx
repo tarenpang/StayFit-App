@@ -12,10 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import {Link} from 'react-router-dom';
+
 // import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,7 +40,9 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+        {/* <Link style={{ textDecoration: 'none' }} to="/">  */}
           <FitnessCenterIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          
           <Typography
             variant="h6"
             noWrap
@@ -58,7 +60,7 @@ const ResponsiveAppBar = () => {
           >
             StayFit
           </Typography>
-
+          {/* </Link> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -88,13 +90,25 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/exercises">
+                  <Typography textAlign="center">Exercises</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/about">
+                  <Typography textAlign="center">About Us</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/support">
+                  <Typography textAlign="center">Support</Typography>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
+          {/* <Link style={{ textDecoration: 'none' }} to="/">  */}
           <FitnessCenterIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -114,22 +128,37 @@ const ResponsiveAppBar = () => {
           >
             StayFit
           </Typography>
+          {/* </Link> */}
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+          <Link style={{ textDecoration: 'none' }} to="/exercises"> 
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
-              </Button>
-            ))}
+                Exercises
+              </Button>  
+          </Link>   
+          <Link style={{ textDecoration: 'none' }} to="/about"> 
+              <Button
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                About Us
+              </Button>  
+          </Link>
+          <Link style={{ textDecoration: 'none' }} to="/support"> 
+              <Button
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Support
+              </Button>  
+          </Link>      
+
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={"John"} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -148,11 +177,21 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/userprofile">
+                  <Typography textAlign="center">Profile</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/">
+                  <Typography textAlign="center">Logout</Typography>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

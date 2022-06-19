@@ -1,51 +1,131 @@
-import { useState, useEffect } from 'react';
-import stayFitDataService from '../services/stayFitDataService';
-import TemporaryDrawer from './TemporaryDrawer';
-import ResponsiveAppBar from './Navbar';
-import { Stack, ImageList, ImageListItem, Box } from '@mui/material'
-// import ImageListExercises from './MuiImageList';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+// import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import afe from '../assets/icons/afe.svg';
+import awe from '../assets/icons/awe.svg';
+import cor from '../assets/icons/cor.svg';
+import crv from '../assets/icons/crv.svg';
+import fbw from '../assets/icons/fbw.svg';
+import hke from '../assets/icons/hke.svg';
+import shd from '../assets/icons/shd.svg';
 
-const ExerciseList = () => {
-    const [exercises, setExercises] = useState([]);
-    console.log(exercises); 
-    useEffect(() => {
-        retrieveExercises();
-    }, []);
-    
-    const retrieveExercises = () => {
-        stayFitDataService.getAll()
-        .then(response => {
-            setExercises(response.data);
-            console.log("response data is: ")
-            console.log(response.data);
-        })
-        .catch(e => {
-            console.log(e)
-        })
+// const [category, setCategory] = useState();
+
+export default function TemporaryDrawer() {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
     }
-    
-    return (
-      <>
-        <ResponsiveAppBar/>
-        <TemporaryDrawer/>
-        <h1>Exercises:</h1>
-        <div className="container" sx={{mx: "auto", textAlign: "center"}}>
-          <Stack spacing={4}>
-          <ImageList sx={{ mx: "auto", width: "90%", height: "100%" }} cols={3} >
-            {exercises && exercises.map(exercise => (
-              <ImageListItem key={exercise.index}>
-                <img
-                  src={`${exercise.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2`}
-                  alt={exercise.imageUrl}
-                  loading='lazy'
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Stack>
-        </div>
-      </>
-    )
-}
 
-export default ExerciseList; 
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={fbw} className="fbw-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Full Body Workout'} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={cor} className="cor-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Core Exercises'} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={afe} className="afe-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Ankle and Foot Exercises'} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={crv} className="afe-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Cervical (Neck) Exercises'} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={awe} className="afe-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Arm and Wrist Exercises'} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={hke} className="afe-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Hip and Knee Exercises'} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={1} disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+            <img src={shd} className="afe-icon" alt="icon" />
+            </ListItemIcon>
+            <ListItemText primary={'Shoulder Exercises'} />
+          </ListItemButton>
+        </ListItem>
+
+        
+      </List>
+    </Box>
+  );
+
+  return (
+    <div>
+      {['filter by categories'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}

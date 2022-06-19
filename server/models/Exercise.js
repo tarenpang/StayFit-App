@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
+const Joi = require('joi'); 
 
 
-const exerciseSchema = new Schema({
+var exerciseSchema = new Schema({
             name: String,
             description: String, 
             category: String,
@@ -11,7 +12,7 @@ const exerciseSchema = new Schema({
             frequency: Number,
             imageUrl: String,
             },
-            { timeStamps: true }
+            { timestamps: true }
           );
 
-    module.exports = mongoose.model("exercise", exerciseSchema);
+    module.exports = mongoose.model("Exercise", exerciseSchema);
