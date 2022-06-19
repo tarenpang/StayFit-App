@@ -21,6 +21,7 @@ const RegisterTrainer = () => {
     }
     
     const saveTrainer = () => {
+        console.log("save trainer activated")
         var data = {
             firstName: trainer.firstName,
             lastName: trainer.lastName,
@@ -29,9 +30,11 @@ const RegisterTrainer = () => {
             credentials: trainer.credentials,
             imageUrl: trainer.imageUrl
         }
+        console.log(data); 
          stayFitDataService.createTrainer(data)
         .then(response => {
-            console.log(response)
+            console.log("CRUD activated"); 
+            console.log(response.data)
             setTrainer(initialTrainerState)
         })
         .catch(e => {

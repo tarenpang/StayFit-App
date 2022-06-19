@@ -6,6 +6,4 @@ const db = {};
 db.mongoose = mongoose; 
 db.url = dbConfig.url;
 db.exercises = require('./Exercise')(mongoose);
-db.trainers = require('./Trainer')(mongoose);
-db.users = require('./User')(mongoose);  
 module.exports = db;  

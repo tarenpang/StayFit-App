@@ -6,8 +6,8 @@ import ResponsiveAppBar from "./Navbar";
 import Avatar from '@mui/material/Avatar';
 
 
-const UpdateInfo = () => {
-    const initialUserInfoState = {
+const UpdateTrainerInfo = () => {
+    const initialTrainerInfoState = {
         age: "",
         height: "",
         currentWeight: "",
@@ -20,43 +20,43 @@ const UpdateInfo = () => {
         bmi: "",
         imageUrl: ""
     }
-    const [userInfo, setUserInfo] = useState([initialUserInfoState]);
+    const [trainerInfo, setTrainerInfo] = useState([initialTrainerInfoState]);
 
     const handleInputChange = event => {
         event.preventDefault();
         const {name, value} = event.target;
-        setUserInfo({...userInfo, [name]: value})
+        setTrainerInfo({...trainerInfo, [name]: value})
     }
 
-    const saveUserInfo = () => {
+    // const saveTrainerInfo = () => {
 
-        var data = {
-            age: userInfo.age,
-            height: userInfo.height,
-            currentWeight: userInfo.currentWeight,
-            targetWeight: userInfo.targetWeight,
-            injuries: userInfo.injuries,
-            hr: userInfo.hr,
-            bp: userInfo.bp,
-            respirations: userInfo.respirations,
-            o2: userInfo.o2,
-            bmi: userInfo.bmi,
-        }
-        stayFitDataService.updateUser(data)
-        .then(response => {
-            console.log(response.data);
-            setUserInfo(initialUserInfoState)
-        })
-        .catch(e => {
-            console.log(e)
-        })
-    }
+    //     var data = {
+    //         age: userInfo.age,
+    //         height: userInfo.height,
+    //         currentWeight: userInfo.currentWeight,
+    //         targetWeight: userInfo.targetWeight,
+    //         injuries: userInfo.injuries,
+    //         hr: userInfo.hr,
+    //         bp: userInfo.bp,
+    //         respirations: userInfo.respirations,
+    //         o2: userInfo.o2,
+    //         bmi: userInfo.bmi,
+    //     }
+    //     stayFitDataService.updateUser(data)
+    //     .then(response => {
+    //         console.log(response.data);
+    //         setUserInfo(initialUserInfoState)
+    //     })
+    //     .catch(e => {
+    //         console.log(e)
+    //     })
+    // }
 
     return (
         <>
         <ResponsiveAppBar/>
         <div style={{ textAlign: 'center', fontSize: "20px"}} className="submit-form">
-            <h1>Update User Info</h1>
+            <h1>Update Trainer Info</h1>
             <Avatar sx={{ width: 64, height: 64 }} style={{ marginLeft: "auto", marginRight: "auto"}} alt={"John"} src="/static/images/avatar/2.jpg" />
             <br/>
             <div className="form-group">
@@ -190,4 +190,4 @@ const UpdateInfo = () => {
     )
 }
 
-export default UpdateInfo; 
+export default UpdateTrainerInfo; 

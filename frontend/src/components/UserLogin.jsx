@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/button';
+import Button  from "@mui/material/Button";
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
@@ -18,9 +18,11 @@ const Login = () => {
 
   const [loginInfo, setLoginInfo] = useState([initialLoginState]);
   // const [show, setShow] = useState(false);
-  // const [userName, SetUserName] = useState();
+  const [userName, setUserName] = useState("");
   // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  
 
   // const handleClick = () => setShow(!show);
   const toast = useToast();
@@ -62,6 +64,8 @@ const Login = () => {
                 position: "bottom",
               });
               setLoading(false);
+              setUserLoggedIn(true); 
+              setUserName(loginInfo.userName);
               // navigate.push("/"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
@@ -76,13 +80,14 @@ const Login = () => {
               position: "bottom",
             });
             setLoading(false);
+            setUserLoggedIn(false);
           }
         }
   
         return (
           <>
           <ResponsiveAppBar/>
-            <VStack spacing="10px">
+            <VStack spacing="12px">
               <FormControl id="userName" isRequired sx={{mt: "30px"}}>
                 <FormLabel>Username</FormLabel>
                 <input
@@ -111,15 +116,15 @@ const Login = () => {
                   />
                 </InputGroup>
               </FormControl>
-              <button onClick={submitHandler} className="btn btn-success">Submit</button>
+              <Button onClick={submitHandler} className="CheckButton" variant="contained" size="small" sx={{marginTop: "15px"}}>Submit</Button>
 
               <br></br>
-              <h1>New user? Register</h1>
+              <h5>New User? Please Register...</h5>
               <Link to="/registerUser" style={{display: 'inline-block', textDecoration: "none"}}>
-                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Register user!</Button>
+                <Button className="CheckButton" variant="contained" size="small"  sx={{marginTop: "10px"}}>Register user</Button>
               </Link>
               <Link to="/trainerlogin" style={{display: 'inline-block', textDecoration: "none"}}>
-                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Trainer Login</Button>
+                <Button className="CheckButton" variant="textd" style={{marginTop: "10px"}}>Trainer Login</Button>
               </Link>
             </VStack>
           </>                   

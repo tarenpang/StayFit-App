@@ -17,9 +17,6 @@ import {Link} from 'react-router-dom';
 // import AdbIcon from '@mui/icons-material/Adb';
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -43,9 +40,9 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <Link to="/exercises"> 
+        {/* <Link style={{ textDecoration: 'none' }} to="/">  */}
           <FitnessCenterIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          </Link>
+          
           <Typography
             variant="h6"
             noWrap
@@ -63,7 +60,7 @@ const ResponsiveAppBar = () => {
           >
             StayFit
           </Typography>
-
+          {/* </Link> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -75,7 +72,7 @@ const ResponsiveAppBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            {/* <Menu
+            <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -93,13 +90,25 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
+              
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/exercises">
+                  <Typography textAlign="center">Exercises</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/about">
+                  <Typography textAlign="center">About Us</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/support">
+                  <Typography textAlign="center">Support</Typography>
+                </Link>
+              </MenuItem>
+            </Menu>
           </Box>
+          {/* <Link style={{ textDecoration: 'none' }} to="/">  */}
           <FitnessCenterIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -119,33 +128,24 @@ const ResponsiveAppBar = () => {
           >
             StayFit
           </Typography>
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box> */}
+          {/* </Link> */}
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link to="/exercises"> 
+          <Link style={{ textDecoration: 'none' }} to="/exercises"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Exercises
               </Button>  
           </Link>   
-          <Link to="/about"> 
+          <Link style={{ textDecoration: 'none' }} to="/about"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                About
+                About Us
               </Button>  
           </Link>
-          <Link to="/support"> 
+          <Link style={{ textDecoration: 'none' }} to="/support"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -183,12 +183,12 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               ))} */}
               <MenuItem  onClick={handleCloseUserMenu}>
-                <Link to="/userprofile">
+                <Link style={{ textDecoration: 'none' }} to="/userprofile">
                   <Typography textAlign="center">Profile</Typography>
                 </Link>
               </MenuItem>
               <MenuItem  onClick={handleCloseUserMenu}>
-                <Link to="/">
+                <Link style={{ textDecoration: 'none' }} to="/">
                   <Typography textAlign="center">Logout</Typography>
                 </Link>
               </MenuItem>

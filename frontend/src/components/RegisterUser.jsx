@@ -20,7 +20,7 @@ const RegisterUser = () => {
     }
     
     const saveUser = () => {
-       
+       console.log("save user activated")
         var data = {
             firstName: user.firstName,
             lastName: user.lastName,
@@ -30,6 +30,7 @@ const RegisterUser = () => {
         }
         stayFitDataService.createUser(data)
         .then(response => {
+            console.log("CRUD activated");
             console.log(response)
             setUser(initialUserState)
         })

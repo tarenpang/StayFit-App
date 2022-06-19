@@ -14,6 +14,8 @@ import RegisterTrainer from "./components/RegisterTrainer";
 import About from "./components/About";
 import Support from "./components/Support";
 import UserProfile from "./components/UserProfile"
+import FirstUserLogin from "./components/FirstTimeLogin"
+import AddExerciseForm from "./components/AddExerciseForm"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,7 +26,9 @@ root.render(
         <Route path="/landingpage" element={<LandingPage />}></Route>
         <Route path="/mainpage" element={<MainPage />}></Route>
         <Route path="/exercises" element={<Exercises />}></Route>
+        <Route path="/addexercise" element={<AddExerciseForm />}></Route>
         <Route path="/userlogin" element={<UserLogin />}></Route>
+        <Route path="/firstuserlogin" element={<FirstUserLogin />}></Route>
         <Route path="/registerUser" element={<RegisterUser />}></Route>
         <Route path="/registerTrainer" element={<RegisterTrainer />}></Route>
         <Route path="/trainerlogin" element={<TrainerLogin/>}></Route>
