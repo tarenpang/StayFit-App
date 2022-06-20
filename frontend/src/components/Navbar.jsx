@@ -53,7 +53,7 @@ const ResponsiveAppBar = (props) => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/mainpage"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -142,7 +142,7 @@ const ResponsiveAppBar = (props) => {
           {/* </Link> */}
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link style={{ textDecoration: 'none' }} to="/mainpage"> 
+          <Link style={{ textDecoration: 'none' }} to="/exercises"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >

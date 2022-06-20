@@ -70,7 +70,6 @@ const UserLogin = () => {
               setLoginInfo(initialLoginState);
           })
           } catch (error) {
-            console.log('error is' + error);
             toast({
               title: "Error Occurred!",
               description: error.response.data.message,
