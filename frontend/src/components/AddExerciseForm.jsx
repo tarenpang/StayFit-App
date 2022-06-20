@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import { VStack } from "@chakra-ui/layout";
 import Button from "@mui/material/Button";
 import ResponsiveAppBar from './Navbar';
 
@@ -43,10 +45,10 @@ const AddExerciseForm = () => {
     return (
         <> 
         <ResponsiveAppBar/>
-        <div className="submit-form">
-            <h1>Add New Exercise</h1>
-            <div className="form-group">
-            <label htmlFor='name'>Name</label>
+        <VStack spacing="12px">
+            <h2 style={{color: "gray"}}>Add New Exercise</h2>
+            <FormControl id="userName" isRequired sx={{mt: "30px"}}>
+            <FormLabel>Exercise Name</FormLabel>
             <input
                 type="text"
                 id="name"
@@ -54,10 +56,11 @@ const AddExerciseForm = () => {
                 value={exercise.name}
                 onChange={handleInputChange}
                 name="name"
+                placeholder="Enter Exercise Name"
             />
-            </div>
-            <div className="form-group">
-            <label htmlFor='description'>Description</label>
+            </FormControl>
+            <FormControl id="description" isRequired>
+            <FormLabel>Description</FormLabel>
             <input
                 type="text"
                 id="description"
@@ -65,10 +68,11 @@ const AddExerciseForm = () => {
                 value={exercise.description}
                 onChange={handleInputChange}
                 name="description"
+                placeholder="Enter Description"
             />
-            </div>
-            <div className="form-group">
-            <label htmlFor='category'>Category</label>
+            </FormControl>
+            <FormControl id="category" isRequired>
+            <FormLabel>Category</FormLabel>
             <input
                 type="text"
                 id="category"
@@ -76,9 +80,11 @@ const AddExerciseForm = () => {
                 value={exercise.category}
                 onChange={handleInputChange}
                 name="category"
+                placeholder="Enter Category"
             />
-            <div className="form-group">
-            <label htmlFor='reps'>Reps</label>
+            </FormControl>
+            <FormControl id="reps" isRequired>
+            <FormLabel>Reps</FormLabel>
             <input
                 type="number"
                 id="reps"
@@ -87,9 +93,9 @@ const AddExerciseForm = () => {
                 onChange={handleInputChange}
                 name="reps"
             />
-            </div>
-            <div className="form-group">
-            <label htmlFor='sets'>Sets</label>
+            </FormControl>
+            <FormControl id="sets" isRequired>
+            <FormLabel>Sets</FormLabel>
             <input
                 type="number"
                 id="sets"
@@ -98,10 +104,9 @@ const AddExerciseForm = () => {
                 onChange={handleInputChange}
                 name="sets"
             />
-            </div>
-            </div>
-            <div className="form-group">
-            <label htmlFor='sets'>Frequency</label>
+            </FormControl>
+            <FormControl id="frequency" isRequired>
+            <FormLabel>Frequency</FormLabel>
             <input
                 type="number"
                 id="frequency"
@@ -110,9 +115,9 @@ const AddExerciseForm = () => {
                 onChange={handleInputChange}
                 name="frequency"
             />
-            </div>
-            <div className="form-group">
-            <label htmlFor='imageUrl'>ImageUrl</label>
+            </FormControl>
+            <FormControl id="imageUrl" isRequired>
+            <FormLabel>ImageURL</FormLabel>
             <input
                 type="text"
                 id="imageUrl"
@@ -120,11 +125,12 @@ const AddExerciseForm = () => {
                 value={exercise.imageUrl}
                 onChange={handleInputChange}
                 name="imageUrl"
+                placeholder="Enter Image URL"
             />
-            <br/>
-            <Button onClick={saveExercise} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
-            </div>
-        </div>
+            </FormControl>
+            <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
+            <Button onClick={saveExercise} className="CheckButton" variant="contained" size="small" style={{marginTop: "10px"}}>Submit</Button>
+        </VStack>
         </>
      );
 }

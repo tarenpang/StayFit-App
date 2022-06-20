@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,13 +14,18 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {Link} from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import loggedInStatus from '../contexts/auth';
+// import { AuthProvider } from '../contexts/AuthContext'
 
 // import AdbIcon from '@mui/icons-material/Adb';
 
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  // const [ loggedIn, setLoggedIn ] = useContext(AuthProvider);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -158,7 +164,9 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={"John"} src="/static/images/avatar/2.jpg" />
+                {loggedInStatus
+                  ? <Avatar alt={"John"} src="/static/images/avatar/2.jpg"/>
+                  : <Avatar src={{AccountCircleIcon}} />}
               </IconButton>
             </Tooltip>
             <Menu
@@ -189,7 +197,10 @@ const ResponsiveAppBar = () => {
               </MenuItem>
               <MenuItem  onClick={handleCloseUserMenu}>
                 <Link style={{ textDecoration: 'none' }} to="/">
-                  <Typography textAlign="center">Logout</Typography>
+                  {loggedInStatus
+                    ? <Typography textAlign="center">Logout</Typography>
+                    : <Typography textAlign="center">Login</Typography>
+                  }
                 </Link>
               </MenuItem>
             </Menu>

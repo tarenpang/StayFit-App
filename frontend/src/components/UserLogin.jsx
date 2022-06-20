@@ -8,7 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
 import ResponsiveAppBar from './Navbar'
 
-const Login = () => { 
+var userLoggedIn = false;
+
+const UserLogin = () => { 
   const initialLoginState = {
     userName: "",
     password: "",
@@ -21,7 +23,7 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  // const [userLoggedIn, setUserLoggedIn] = useState(false);
   
 
   // const handleClick = () => setShow(!show);
@@ -56,31 +58,35 @@ const Login = () => {
 
             stayFitDataService.loginUser(data)
             .then(response => {
-              toast({
-                title: "Login Successful",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-              });
+              console.log(response.data)
+              // toast({
+              //   title: "Login Successful",
+              //   status: "success",
+              //   duration: 5000,
+              //   isClosable: true,
+              //   position: "bottom",
+              // });
               setLoading(false);
-              setUserLoggedIn(true); 
+              userLoggedIn =true; 
+              // console.log("ln 71 userLoggedIn: ", userLoggedIn)
+              console.log("userID: ", response._id)
               setUserName(loginInfo.userName);
-              // navigate.push("/"); // redirect to UserDashboard
+              navigate.push("/userdashboard"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
           } catch (error) {
             console.log('error is' + error);
-            toast({
-              title: "Error Occurred!",
-              description: error.response.data.message,
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-              position: "bottom",
-            });
+            // toast({
+            //   title: "Error Occurred!",
+            //   description: error.response.data.message,
+            //   status: "error",
+            //   duration: 5000,
+            //   isClosable: true,
+            //   position: "bottom",
+            // });
             setLoading(false);
-            setUserLoggedIn(false);
+            userLoggedIn = false;
+            console.log("ln 88 userLoggedIn: ", userLoggedIn)
           }
         }
   
@@ -88,6 +94,7 @@ const Login = () => {
           <>
           <ResponsiveAppBar/>
             <VStack spacing="12px">
+            <h2 style={{color: "gray"}}>User Login</h2>
               <FormControl id="userName" isRequired sx={{mt: "30px"}}>
                 <FormLabel>Username</FormLabel>
                 <input
@@ -116,12 +123,20 @@ const Login = () => {
                   />
                 </InputGroup>
               </FormControl>
+              <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
               <Button onClick={submitHandler} className="CheckButton" variant="contained" size="small" sx={{marginTop: "15px"}}>Submit</Button>
 
               <br></br>
-              <h5>New User? Please Register...</h5>
+              <h5 style={{color: "gray", marginTop: "30px"}}>New User? Please Register...</h5>
               <Link to="/registerUser" style={{display: 'inline-block', textDecoration: "none"}}>
-                <Button className="CheckButton" variant="contained" size="small"  sx={{marginTop: "10px"}}>Register user</Button>
+                <Button 
+                  className="CheckButton" 
+                  variant="contained" 
+                  size="small"  
+                  sx={{
+                    backgroundColor: "gray",
+                    marginTop: "10px"
+                    }}>Register user</Button>
               </Link>
               <Link to="/trainerlogin" style={{display: 'inline-block', textDecoration: "none"}}>
                 <Button className="CheckButton" variant="textd" style={{marginTop: "10px"}}>Trainer Login</Button>
@@ -131,7 +146,8 @@ const Login = () => {
         );
       }
 
-export default Login;
+export default UserLogin;
+export { userLoggedIn };
 
 
 

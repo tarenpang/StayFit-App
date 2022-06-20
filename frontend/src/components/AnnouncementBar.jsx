@@ -1,6 +1,8 @@
 import Carousel from "react-material-ui-carousel";
 import { Paper } from "@mui/material";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import bestPunchingBags from '../assets/images/bestPunchingBags.jpg'
+import groupFitness from '../assets/images/groupFitness.jpg'
 
 
 function Announcements(props) {
@@ -9,12 +11,14 @@ function Announcements(props) {
         {
             name: "Hello new users!",
             description: "StayFit would like to welcome all new users and look forward to helping you StayFit",
-            image: "https://www.gym-pact.com/wp-content/uploads/2020/12/Best-Punching-Bags-2-1-scaled.jpg",
+            image: bestPunchingBags,
+            // image: "https://www.gym-pact.com/wp-content/uploads/2020/12/Best-Punching-Bags-2-1-scaled.jpg",
         },
         {
             name: "Bring a friend",
             description: "Did you know that working out with friends can be a fun way to StayFit?",
-            image: "https://fitness1440.com/legacycalgary/wp-content/uploads/2018/08/group-fitness1.jpg",
+            image: groupFitness,
+            // image: "https://fitness1440.com/legacycalgary/wp-content/uploads/2018/08/group-fitness1.jpg",
         },
         
     ]

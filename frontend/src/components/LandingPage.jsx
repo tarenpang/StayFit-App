@@ -5,6 +5,7 @@ import Intro from "./Intro";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Delete from '@mui/icons-material/Delete';
 import {Link} from 'react-router-dom';
+import benchPress from '../assets/images/benchPress.jpg'
 
 function LandingPage(props) {
     
@@ -12,7 +13,8 @@ function LandingPage(props) {
         {
             name: "Bench Press",
             description: "Learn proper technique & form!",
-            image: "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/01/Intermediate-bench-press-program.jpg?resize=2048%2C1365&ssl=1",
+            image: benchPress,
+            // image: "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/01/Intermediate-bench-press-program.jpg?resize=2048%2C1365&ssl=1",
         },
         {
             name: "Pull ups",
@@ -63,12 +65,23 @@ function LandingPage(props) {
               textAlign: 'center',
               color: 'white',
               textShadow: '1.5px 1.5px rgba(0,0,0,0.6)',
-              bottom: 245,
+              bottom: 315,
               left: '50%',
               transform: 'translate(-50%)',
               '@media (maxWidth: 400px)': {}
             }}>{props.item.description}</h3>
-            <img object-fit="cover" display="block" height="100%" maxHeight="300px" width="100%" overflow="hidden"  src={props.item.image}></img>
+            <img objectFit="cover" 
+                sx={{
+                  display:"block", 
+                  height:"100%", 
+                  maxHeight:"300px", 
+                  width:"100%", 
+                  overflow:"hidden"
+                }}  
+                src={props.item.image}
+                alt={props.item.name}  
+                >
+                </img>
             </Paper>                     
             <div style={{margin: 'auto', textAlign: 'center'}}>
               <Link to="/mainpage" style={{display: 'inline-block', textDecoration: "none"}}>

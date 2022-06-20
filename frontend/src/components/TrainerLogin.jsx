@@ -1,7 +1,7 @@
-import Button  from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import React, { useState } from "react";
 import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
@@ -12,7 +12,9 @@ import ResponsiveAppBar from './Navbar'
 // import Button from "../Button";
 // import Input from "../Input";
 
-const Login = () => { 
+var trainerLoggedIn = false;
+
+const TrainerLogin = () => { 
   const initialLoginState = {
     userName: "",
     password: "",
@@ -22,10 +24,10 @@ const Login = () => {
 
   const [loginInfo, setLoginInfo] = useState([initialLoginState]);
   // const [show, setShow] = useState(false);
-  const [trainerName, SetTrainerName] = useState('');
+  const [trainerName, setTrainerName] = useState('');
   // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  const [trainerLoggedIn, setTrainerLoggedIn] = useState(false)
+  // const [trainerLoggedIn, setTrainerLoggedIn] = useState(false)
 
   // const handleClick = () => setShow(!show);
   const toast = useToast();
@@ -69,9 +71,9 @@ const Login = () => {
                 position: "bottom",
               });
               setLoading(false);
-              setTrainerLoggedIn(true); 
-              // setTrainerName(loginInfo.userName);
-              navigate.push("/"); // redirect to UserDashboard
+              trainerLoggedIn = true; 
+              setTrainerName(loginInfo.userName);
+              navigate.push("/trainerdashboard"); // redirect to TrainerDashboard
               setLoginInfo(initialLoginState);
           })
 
@@ -86,14 +88,15 @@ const Login = () => {
               position: "bottom",
             });
             setLoading(false);
-            setTrainerLoggedIn(false);
+            trainerLoggedIn = false;
           }
         }
   
         return (
           <>
           <ResponsiveAppBar/>
-            <VStack spacing="10px">
+            <VStack spacing="12px">
+              <h2 style={{color: "gray"}}>Trainer Login</h2>
               <FormControl id="userName" isRequired sx={{mt: "30px"}}>
                 <FormLabel>Username</FormLabel>
                 <input
@@ -128,19 +131,18 @@ const Login = () => {
                   </InputRightElement> */}
                 </InputGroup>
                 </FormControl>
-                <br></br>
-              <Button onClick={submitHandler} className="CheckButton" variant="contained">Submit</Button>
-              <br></br>
-              <h5>New Trainer? Please register...</h5>
-              <Link to="/registerTrainer" style={{display: 'inline-block', textDecoration: "none"}}>
-                <Button className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Register as a Trainer</Button>
-              </Link>
+
+
+                <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
+
+              <Button onClick={submitHandler} className="CheckButton" variant="contained" size="small" style={{marginTop: "10px"}}>Submit</Button>
             </VStack>
           </>                   
         );
       }
 
-export default Login;
+export default TrainerLogin ;
+export {trainerLoggedIn} ;
 
 
 
