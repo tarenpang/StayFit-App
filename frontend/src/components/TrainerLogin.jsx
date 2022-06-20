@@ -3,7 +3,6 @@ import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import React, { useState } from "react";
-import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
@@ -25,7 +24,7 @@ const Login = () => {
   const [trainerName, SetTrainerName] = useState('');
   // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  const [trainerLoggedIn, setTrainerLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   // const handleClick = () => setShow(!show);
   const toast = useToast();
@@ -60,7 +59,7 @@ const Login = () => {
 
             await stayFitDataService.loginTrainer(data)
             .then(response => {
-              console.log(response.data);
+              const loggedInStatus = response.data.trainerLoggedIn
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -69,9 +68,9 @@ const Login = () => {
                 position: "bottom",
               });
               setLoading(false);
-              setTrainerLoggedIn(true); 
+              setLoggedIn(loggedInStatus); 
               // setTrainerName(loginInfo.userName);
-              navigate.push("/"); // redirect to UserDashboard
+              navigate("/mainPage"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
 
@@ -86,7 +85,7 @@ const Login = () => {
               position: "bottom",
             });
             setLoading(false);
-            setTrainerLoggedIn(false);
+            setLoggedIn(false);
           }
         }
   

@@ -45,13 +45,44 @@ router.get('/', async(req, res) => {
 });
 
 // Find Trainer by ID
-router.get('/', async(req, res) => {
+router.get('/:id', async(req, res) => {
   const id = req.params.id;
   Trainer.findById(id)
   .then(data => {
     if (!data)
       res.status(404).send({ message: "Not found Trainer with id " + id });
     else res.send(data);  
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .send({ message: "Error retrieving Trainer with id=" + id })
+  });
+});
+
+router.put('/:id', async(req, res) => {
+  const id = req.params.id;
+  Trainer.findByIdAndUpdate(id, req.body)
+  .then(data => {
+    if (!data) {
+      res.status(404).send({ message: "Not found Trainer with id " + id });
+    }
+    else res.send({message:`Trainer ${data.firstName} info updated sucessfully!`});  
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .send({ message: "Error retrieving Trainer with id=" + id })
+  });
+});
+
+router.delete('/:id', async(req, res) => {
+  const id = req.params.id;
+  Trainer.findByIdAndDelete(id)
+  .then(data => {
+    if (!data)
+      res.status(404).send({ message: "Not found Trainer with id " + id });
+    else res.send({message: `Traner ${data.firstName} deleted successfully!`});  
   })
   .catch(err => {
     res

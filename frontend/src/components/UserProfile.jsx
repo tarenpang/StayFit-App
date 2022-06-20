@@ -1,12 +1,30 @@
 import { Button } from '@chakra-ui/button';
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
 import ResponsiveAppBar from "./Navbar";
 import Avatar from '@mui/material/Avatar';
 
 
 const UpdateInfo = () => {
+
+    const [loggedInInfo, setLoggedInInfo] = useState("")
+
+    //Retrieve current user info if loggedIn
+    useEffect(() => {
+        retrieveUserInfo(); 
+    },[]);
+
+    const retrieveUserInfo = async() => {
+        stayFitDataService.findUser()
+        .then(response => {
+            setLoggedInInfo(response.data)
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }; 
+
     const initialUserInfoState = {
         age: "",
         height: "",
@@ -169,22 +187,10 @@ const UpdateInfo = () => {
                 name="bmi"
             />
             </div>
-            <div className="form-group">
-            <label htmlFor="imageUrl">Profile Image URL</label>
-            <input
-                type="text"
-                id="imageUrl"
-                required
-                value={userInfo.imageUrl}
-                onChange={handleInputChange}
-                name="imageUrl"
-            />
-            </div>
             <br/>
             <Link to="/userlogin" style={{display: 'inline-block', textDecoration: "none"}}>
             <Button onclick={saveUserInfo}>Update</Button>
               </Link>
-            
         </div>
         </>
     )

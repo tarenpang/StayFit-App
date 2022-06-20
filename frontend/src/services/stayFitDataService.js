@@ -24,15 +24,11 @@ const createUser = (data) => {
   return http.post("/users", data);
 };
 
-const findUser = (id) => {
-  return http.get("/users", id);
+const findUser = (id, data) => {
+  return http.get(`/users/${id}`, id, data);
 };
 
 const loginUser = (data) => {
-  console.log("client side log in")
-  console.log(data)
-  const results = http.post("/usersLogin", data)
-  console.log(results);  
   return http.post("/usersLogin", data)
 }
 
@@ -41,7 +37,7 @@ const loginTrainer = (data) => {
 }
 
 const updateUser = (id, data) => {
-  return http.get("/users", data, id);
+  return http.update(`/users/${id}`, data, id);
 };
 
 const stayFitDataService = {

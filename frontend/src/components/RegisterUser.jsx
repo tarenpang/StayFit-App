@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
 import Button from "@mui/material/Button";  
+import { useNavigate } from 'react-router-dom'; 
 
 const RegisterUser = () => {
     const initialUserState = {
@@ -19,6 +20,8 @@ const RegisterUser = () => {
         setUser({...user, [name]: value});
     }
     
+    const navigate = useNavigate(); 
+
     const saveUser = () => {
        console.log("save user activated")
         var data = {
@@ -33,6 +36,7 @@ const RegisterUser = () => {
             console.log("CRUD activated");
             console.log(response)
             setUser(initialUserState)
+            navigate('/userLogin')
         })
         .catch(e => {
             console.log(e)
@@ -96,17 +100,6 @@ const RegisterUser = () => {
                 value={user.repeatPassword}
                 onChange={handleInputChange}
                 name="repeatPassword"
-            />
-            </div>
-            <div className="form-group">
-            <label htmlFor='imageUrl'>Picture</label>
-            <input
-                type="text"
-                id="imageUrl"
-                required
-                value={user.imageUrl}
-                onChange={handleInputChange}
-                name="imageUrl"
             />
             </div>
             <br/>

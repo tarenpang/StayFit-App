@@ -7,13 +7,6 @@ const mongoose = require('mongoose');
 
 router.post('/', async(req, res) => {
     try {
-        // const { userName, password } = req.body;
-        // console.log("try is hitting")
-        // const {error} = validate(req.body)
-        // if(error)
-        // return res.status(400).send({message: error.details[0].message});
-        // console.log("before trainer search")
-        // console.log(userName)
         const trainer = await Trainer.findOne({userName: req.body.userName})
         if(!trainer) {
             return res.status(401).send({message:"Trainer not found!"})
@@ -29,7 +22,7 @@ router.post('/', async(req, res) => {
             return res.status(401).send({message:"Password is not valid!"})
         }
         console.log('Password successful')
-        res.status(200).send({message: "Logged in successfully!"})
+        res.status(200).send({message: "Trainer Logged in successfully!", trainerLoggedIn: true})
     } catch(error) {
         res.status(500).send({message:"Internal server error"})
     }

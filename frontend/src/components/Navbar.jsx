@@ -12,12 +12,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 // import AdbIcon from '@mui/icons-material/Adb';
 
 
 const ResponsiveAppBar = () => {
+  
+  const {id} = useParams(); 
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -106,6 +109,11 @@ const ResponsiveAppBar = () => {
                   <Typography textAlign="center">Support</Typography>
                 </Link>
               </MenuItem>
+              <MenuItem  onClick={handleCloseUserMenu}>
+                <Link style={{ textDecoration: 'none' }} to="/trainers">
+                  <Typography textAlign="center">Trainers</Typography>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
           {/* <Link style={{ textDecoration: 'none' }} to="/">  */}
@@ -131,7 +139,7 @@ const ResponsiveAppBar = () => {
           {/* </Link> */}
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link style={{ textDecoration: 'none' }} to="/exercises"> 
+          <Link style={{ textDecoration: 'none' }} to="/mainpage"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -145,6 +153,13 @@ const ResponsiveAppBar = () => {
                 About Us
               </Button>  
           </Link>
+          <Link style={{ textDecoration: 'none' }} to="/trainers"> 
+              <Button
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Trainers
+              </Button>  
+          </Link>   
           <Link style={{ textDecoration: 'none' }} to="/support"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -183,7 +198,7 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               ))} */}
               <MenuItem  onClick={handleCloseUserMenu}>
-                <Link style={{ textDecoration: 'none' }} to="/userprofile">
+                <Link style={{ textDecoration: 'none' }} to="/userprofile/:id">
                   <Typography textAlign="center">Profile</Typography>
                 </Link>
               </MenuItem>

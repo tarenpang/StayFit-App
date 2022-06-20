@@ -9,8 +9,6 @@ const RegisterTrainer = () => {
         userName: "",
         password: "",
         repeatPassword: "",
-        credentials: "",
-        imageUrl: "",
     }
     const [trainer, setTrainer] = useState(initialTrainerState);
 
@@ -27,8 +25,6 @@ const RegisterTrainer = () => {
             lastName: trainer.lastName,
             userName: trainer.userName,
             password: trainer.password,
-            credentials: trainer.credentials,
-            imageUrl: trainer.imageUrl
         }
         console.log(data); 
          stayFitDataService.createTrainer(data)
@@ -102,30 +98,8 @@ const RegisterTrainer = () => {
                 name="repeatPassword"
             />
             </div>
-            <div className="form-group">
-            <label htmlFor='credentials'>Credentials</label>
-            <input
-                type="text"
-                id="credentials"
-                required
-                value={trainer.credentials}
-                onChange={handleInputChange}
-                name="credentials"
-            />
-            <div className="form-group">
-            <label htmlFor='imageUrl'>Picture</label>
-            <input
-                type="text"
-                id="imageUrl"
-                required
-                value={trainer.imageUrl}
-                onChange={handleInputChange}
-                name="imageUrl"
-            />
-            </div>
             <br/>
             <Button onClick={saveTrainer} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
-            </div>
         </div>
      );
 }
