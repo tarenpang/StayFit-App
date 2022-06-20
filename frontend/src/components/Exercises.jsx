@@ -50,11 +50,7 @@ const ExerciseList = () => {
                            
                   <ImageListItem key={exercise.index}>
                     <img
-<<<<<<< HEAD
-                      key={exercise._id} 
-=======
                       id={exercise._id} 
->>>>>>> origin
                       src={`${exercise.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2`}
                       alt={exercise.imageUrl}
                       loading='lazy'

@@ -13,26 +13,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-<<<<<<< HEAD
 import {Link} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import loggedInStatus from '../contexts/auth';
 // import { AuthProvider } from '../contexts/AuthContext'
-=======
-import {Link, useParams} from 'react-router-dom';
->>>>>>> origin
 
 // import AdbIcon from '@mui/icons-material/Adb';
 
 
-<<<<<<< HEAD
 const ResponsiveAppBar = (props) => {
-=======
-const ResponsiveAppBar = () => {
-  
-  const {id} = useParams(); 
-
->>>>>>> origin
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

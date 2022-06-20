@@ -3,13 +3,12 @@ import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { VStack } from "@chakra-ui/layout";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import React, { useState } from "react";
+import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
 import ResponsiveAppBar from './Navbar'
-// import styles from "./index.module.css";
-// import Button from "../Button";
-// import Input from "../Input";
+
 
 var trainerLoggedIn = false;
 
@@ -22,17 +21,9 @@ const TrainerLogin = () => {
   };
 
   const [loginInfo, setLoginInfo] = useState([initialLoginState]);
-  // const [show, setShow] = useState(false);
   const [trainerName, setTrainerName] = useState('');
-  // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
-  // const [trainerLoggedIn, setTrainerLoggedIn] = useState(false)
-=======
-  const [loggedIn, setLoggedIn] = useState(false)
->>>>>>> origin
 
-  // const handleClick = () => setShow(!show);
   const toast = useToast();
   const navigate = useNavigate();
   
@@ -65,7 +56,7 @@ const TrainerLogin = () => {
 
             await stayFitDataService.loginTrainer(data)
             .then(response => {
-              const loggedInStatus = response.data.trainerLoggedIn
+              console.log(response.data);
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -74,15 +65,9 @@ const TrainerLogin = () => {
                 position: "bottom",
               });
               setLoading(false);
-<<<<<<< HEAD
               trainerLoggedIn = true; 
               setTrainerName(loginInfo.userName);
               navigate.push("/trainerdashboard"); // redirect to TrainerDashboard
-=======
-              setLoggedIn(loggedInStatus); 
-              // setTrainerName(loginInfo.userName);
-              navigate("/mainPage"); // redirect to UserDashboard
->>>>>>> origin
               setLoginInfo(initialLoginState);
           })
 
@@ -97,11 +82,7 @@ const TrainerLogin = () => {
               position: "bottom",
             });
             setLoading(false);
-<<<<<<< HEAD
             trainerLoggedIn = false;
-=======
-            setLoggedIn(false);
->>>>>>> origin
           }
         }
   
@@ -120,7 +101,6 @@ const TrainerLogin = () => {
                   onChange={handleInputChange}
                   name="userName"
                   placeholder="Enter Username"
-                  // onChange={(e) => SetUserName(e.target.value)}
                 />
               </FormControl>
 
@@ -135,16 +115,10 @@ const TrainerLogin = () => {
                     onChange={handleInputChange}
                     name="password"
                     placeholder="Enter Password"
-                    // onChange={(e) => setPassword(e.target.value)}
+
                   />
-                  {/* <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick} className="btn btn-success">
-                      {show ? "Hide" : "Show"}
-                    </Button>
-                  </InputRightElement> */}
                 </InputGroup>
                 </FormControl>
-
 
                 <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
 

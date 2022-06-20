@@ -12,11 +12,8 @@ const RegisterTrainer = () => {
         userName: "",
         password: "",
         repeatPassword: "",
-<<<<<<< HEAD
         // credentials: "",
         // imageUrl: "",
-=======
->>>>>>> origin
     }
     const [trainer, setTrainer] = useState(initialTrainerState);
 
@@ -33,11 +30,6 @@ const RegisterTrainer = () => {
             lastName: trainer.lastName,
             userName: trainer.userName,
             password: trainer.password,
-<<<<<<< HEAD
-            // credentials: trainer.credentials,
-            // imageUrl: trainer.imageUrl
-=======
->>>>>>> origin
         }
         console.log(data); 
          stayFitDataService.createTrainer(data)
@@ -53,7 +45,6 @@ const RegisterTrainer = () => {
 
     
 
-<<<<<<< HEAD
   return (
     <> 
     <ResponsiveAppBar/>
@@ -120,96 +111,10 @@ const RegisterTrainer = () => {
       />
       </FormControl>
       <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
-      {/* <FormControl id="credentials" isRequired sx={{mt: "30px"}}>
-      <FormLabel>Credentials</FormLabel>
-      <input
-          type="text"
-          id="credentials"
-          required
-          value={trainer.credentials}
-          onChange={handleInputChange}
-          name="credentials"
-      />
-      </FormControl> */}
-      {/* <div className="form-group">
-      <label htmlFor='imageUrl'>Picture</label>
-      <input
-          type="text"
-          id="imageUrl"
-          required
-          value={trainer.imageUrl}
-          onChange={handleInputChange}
-          name="imageUrl"
-      />
-      </div> */}
       <Button onClick={saveTrainer} className="CheckButton" variant="contained" size="small" style={{marginTop: "10px"}}>Submit</Button>
     </VStack>
     </>
     );
-=======
-    return ( 
-        <div className="submit-form">
-            <h1>Register New Trainer</h1>
-            <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
-            <input
-                type="text"
-                id="firstName"
-                required
-                value={trainer.firstName}
-                onChange={handleInputChange}
-                name="firstName"
-            />
-            </div>
-            <div className="form-group">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-                type="text"
-                id="lastName"
-                required
-                value={trainer.lastName}
-                onChange={handleInputChange}
-                name="lastName"
-            />
-            </div>
-            <div className="form-group">
-            <label htmlFor='userName'>Username</label>
-            <input
-                type="text"
-                id="userName"
-                required
-                value={trainer.userName}
-                onChange={handleInputChange}
-                name="userName"
-            />
-            </div>
-            <div className="form-group">
-            <label htmlFor='password'>Password</label>
-            <input
-                type="text"
-                id="password"
-                required
-                value={trainer.password}
-                onChange={handleInputChange}
-                name="password"
-            />
-            </div>
-            <div className="form-group">
-            <label htmlFor='repeatPassword'>Repeat Password</label>
-            <input
-                type="text"
-                id="repeatPassword"
-                required
-                value={trainer.repeatPassword}
-                onChange={handleInputChange}
-                name="repeatPassword"
-            />
-            </div>
-            <br/>
-            <Button onClick={saveTrainer} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
-        </div>
-     );
->>>>>>> origin
 }
  
 export default RegisterTrainer;

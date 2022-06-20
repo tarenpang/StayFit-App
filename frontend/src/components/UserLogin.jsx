@@ -19,14 +19,10 @@ const UserLogin = () => {
   };
 
   const [loginInfo, setLoginInfo] = useState([initialLoginState]);
-  // const [show, setShow] = useState(false);
   const [userName, setUserName] = useState("");
-  // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-  // const [userLoggedIn, setUserLoggedIn] = useState(false);
-  
 
-  // const handleClick = () => setShow(!show);
+  
   const toast = useToast();
   const navigate = useNavigate();
   
@@ -58,23 +54,7 @@ const UserLogin = () => {
 
             stayFitDataService.loginUser(data)
             .then(response => {
-<<<<<<< HEAD
               console.log(response.data)
-              // toast({
-              //   title: "Login Successful",
-              //   status: "success",
-              //   duration: 5000,
-              //   isClosable: true,
-              //   position: "bottom",
-              // });
-              setLoading(false);
-              userLoggedIn =true; 
-              // console.log("ln 71 userLoggedIn: ", userLoggedIn)
-              console.log("userID: ", response._id)
-              setUserName(loginInfo.userName);
-              navigate.push("/userdashboard"); // redirect to UserDashboard
-=======
-              const loggedInStatus = response.data.userLoggedIn;
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -83,22 +63,22 @@ const UserLogin = () => {
                 position: "bottom",
               });
               setLoading(false);
-              setUserLoggedIn(loggedInStatus); 
+              userLoggedIn =true; 
+              console.log("ln 71 userLoggedIn: ", userLoggedIn)
               setUserName(loginInfo.userName);
->>>>>>> origin
+              navigate.push("/userdashboard"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
-              navigate('/mainPage')
           })
           } catch (error) {
             console.log('error is' + error);
-            // toast({
-            //   title: "Error Occurred!",
-            //   description: error.response.data.message,
-            //   status: "error",
-            //   duration: 5000,
-            //   isClosable: true,
-            //   position: "bottom",
-            // });
+            toast({
+              title: "Error Occurred!",
+              description: error.response.data.message,
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "bottom",
+            });
             setLoading(false);
             userLoggedIn = false;
             console.log("ln 88 userLoggedIn: ", userLoggedIn)
@@ -120,7 +100,6 @@ const UserLogin = () => {
                   onChange={handleInputChange}
                   name="userName"
                   placeholder="Enter Username"
-                  // onChange={(e) => SetUserName(e.target.value)}
                 />
               </FormControl>
               <FormControl id="password" isRequired>
@@ -134,7 +113,6 @@ const UserLogin = () => {
                     onChange={handleInputChange}
                     name="password"
                     placeholder="Enter Password"
-                    // onChange={(e) => setPassword(e.target.value)}
                   />
                 </InputGroup>
               </FormControl>
