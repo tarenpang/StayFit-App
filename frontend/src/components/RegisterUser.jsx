@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
+<<<<<<< HEAD
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { VStack } from "@chakra-ui/layout";
 import Button from "@mui/material/Button";
 import ResponsiveAppBar from './Navbar';  
+=======
+import Button from "@mui/material/Button";  
+import { useNavigate } from 'react-router-dom'; 
+>>>>>>> origin
 
 const RegisterUser = () => {
     const initialUserState = {
@@ -22,6 +27,8 @@ const RegisterUser = () => {
         setUser({...user, [name]: value});
     }
     
+    const navigate = useNavigate(); 
+
     const saveUser = () => {
        console.log("save user activated")
         var data = {
@@ -36,6 +43,7 @@ const RegisterUser = () => {
             console.log("CRUD activated");
             console.log(response)
             setUser(initialUserState)
+            navigate('/userLogin')
         })
         .catch(e => {
             console.log(e)
@@ -43,6 +51,7 @@ const RegisterUser = () => {
     
     }
 
+<<<<<<< HEAD
     return (
       <>
       <ResponsiveAppBar/>
@@ -123,6 +132,69 @@ const RegisterUser = () => {
         <Button onClick={saveUser} className="CheckButton" variant="contained" size="small" style={{marginTop: "10px"}}>Submit</Button>
       </VStack>
       </> 
+=======
+    return ( 
+        <div className="submit-form">
+            <h1>Register New User</h1>
+            <div className="form-group">
+            <label htmlFor="firstName">First Name</label>
+            <input
+                type="text"
+                id="firstName"
+                required
+                value={user.firstName}
+                onChange={handleInputChange}
+                name="firstName"
+            />
+            </div>
+            <div className="form-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+                type="text"
+                id="lastName"
+                required
+                value={user.lastName}
+                onChange={handleInputChange}
+                name="lastName"
+            />
+            </div>
+            <div className="form-group">
+            <label htmlFor='userName'>Username</label>
+            <input
+                type="text"
+                id="userName"
+                required
+                value={user.userName}
+                onChange={handleInputChange}
+                name="userName"
+            />
+            </div>
+            <div className="form-group">
+            <label htmlFor='password'>Password</label>
+            <input
+                type="text"
+                id="password"
+                required
+                value={user.password}
+                onChange={handleInputChange}
+                name="password"
+            />
+            </div>
+            <div className="form-group">
+            <label htmlFor='repeatPassword'>Repeat Password</label>
+            <input
+                type="text"
+                id="repeatPassword"
+                required
+                value={user.repeatPassword}
+                onChange={handleInputChange}
+                name="repeatPassword"
+            />
+            </div>
+            <br/>
+            <Button onClick={saveUser} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
+            </div>
+>>>>>>> origin
      );
 }
  

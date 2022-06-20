@@ -3,7 +3,6 @@ import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { VStack } from "@chakra-ui/layout";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import React, { useState } from "react";
-import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
@@ -27,7 +26,11 @@ const TrainerLogin = () => {
   const [trainerName, setTrainerName] = useState('');
   // const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
   // const [trainerLoggedIn, setTrainerLoggedIn] = useState(false)
+=======
+  const [loggedIn, setLoggedIn] = useState(false)
+>>>>>>> origin
 
   // const handleClick = () => setShow(!show);
   const toast = useToast();
@@ -62,7 +65,7 @@ const TrainerLogin = () => {
 
             await stayFitDataService.loginTrainer(data)
             .then(response => {
-              console.log(response.data);
+              const loggedInStatus = response.data.trainerLoggedIn
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -71,9 +74,15 @@ const TrainerLogin = () => {
                 position: "bottom",
               });
               setLoading(false);
+<<<<<<< HEAD
               trainerLoggedIn = true; 
               setTrainerName(loginInfo.userName);
               navigate.push("/trainerdashboard"); // redirect to TrainerDashboard
+=======
+              setLoggedIn(loggedInStatus); 
+              // setTrainerName(loginInfo.userName);
+              navigate("/mainPage"); // redirect to UserDashboard
+>>>>>>> origin
               setLoginInfo(initialLoginState);
           })
 
@@ -88,7 +97,11 @@ const TrainerLogin = () => {
               position: "bottom",
             });
             setLoading(false);
+<<<<<<< HEAD
             trainerLoggedIn = false;
+=======
+            setLoggedIn(false);
+>>>>>>> origin
           }
         }
   

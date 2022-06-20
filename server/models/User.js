@@ -14,7 +14,7 @@ var userSchema = new Schema({
     password: {type: String, required: true},
     imageUrl: String,
     exercises: [{type: mongoose.Schema.Types.ObjectId,
-      ref: 'Exercise',
+      ref: 'Exercise', strictPopulate: false
     }],
     trainerId: Number,
     age: Number,
@@ -32,13 +32,6 @@ var userSchema = new Schema({
   },
     {timestamps: true}
 );
-
-// userSchema.methods.generateAuthToken = function(){
-//   const token = jwt.sign({_id: this._id}, process.env.JWTPRIVATEKEY, {
-//     expiresin: "7d"
-//   })
-//   return token
-// }
 
 const User = mongoose.model('user', userSchema)
 const validate = (data) => {

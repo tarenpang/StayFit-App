@@ -1,8 +1,9 @@
 const router = require('express').Router()
-// const Joi = require('joi');
 const bcrypt = require('bcryptjs')
 const { User, validate } = require('../models/User')
+const { Exercise } = require('../models/Exercise')
 
+//Create new user
 router.post('/', async(req, res) => {
     try {
         const {error} = validate(req.body)
@@ -18,31 +19,84 @@ router.post('/', async(req, res) => {
             await new User({...req.body, password: hashPassword}).save()
             res.status(201).send({message:"User created!"})
         } else {
-            return res.status(409).send({message:"Username already exists!"})
+            return res.status(409).send({message:"Username already exists!", userLoggedIn: true})
         }
     }catch(error) {
         res.status(500).send({message: error.details.message})
     }
 });
 
-router.get('/', async(req, res) => {
-    const firstName = req.query.firstName;
-    const lastName = req.query.lastName;
-  
-    var condition = firstName || lastName ? {firstName: {$regex: new RegExp(firstName, lastName), $options: 'i'}} : {};
-    User.find(condition)
+//Add exercise to user exercise cart
+router.post('/:id', async(req, res) => {
+
+    let userId = req.params.id
+    let exerciseId = req.body
+
+    const user = await User.findById(userId)
+    const exercise = await Exercise.findById(req.body)
+
+    if(user) {
+        User.findByIdAndUpdate(userId, {$push:{exercises: exercise}})
+        console.log("user found")
+    } else {
+        return res.status(409).send({message:"Unable to get user by id"})
+    }
+})
+;
+
+router.get(`/:id`, async(req, res) => {
+    const id = req.params.id;
+    
+    await User.findById(id)
     .then(data => {
-        res.send(data)
+        if(!data) {
+            res.status(400).send({message:"No user found"})
+        } else {
+            res.send({message:`User ${data.firstName} found with an ${data.id}`})
+        }
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Error occured trying to retrieve trainers."
+            message: err.message || `Error retrieving with id=${id}`
         })
     })
   });
 
 
+  router.put('/:id', async(req, res) => {
+    if(!req.body) {
+        return res.status(400).send({
+            message: "Data does not exist"
+        });
+    }
+    const id = req.params.id;
+    await User.findByIdAndUpdate(id, req.body)
+    .then(data => {
+        if(!data) {
+            res.status(400).send({message:`Cannot update user with an id=${id}`})
+        } else res.send({message: "User info updated succesfully!"})
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || `Error updating user with id= ${id}`
+        })
+    })
+  });  
 
+  router.delete(`/:id`, async(req, res) => {
+    const id = req.params.id;
+    await User.findByIdAndRemove(id)
+    .then(data => {
+        if(!data) {
+            res.status(400).send({message:`Cannot delete user with an id of id=${id}`})
+        } else res.send({message: "User deleted succesfully!"})
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || `Error deleting user with id= ${id}`
+        })
+    })
+  });
 
 module.exports = router
 // module.exports = app => {
