@@ -5,7 +5,9 @@ import Intro from "./Intro";
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Delete from '@mui/icons-material/Delete';
 import {Link} from 'react-router-dom';
-import benchPress from '../assets/images/benchPress.jpg'
+import benchPress from '../assets/images/benchPress.jpg';
+import womanSquats from '../assets/images/womanSquats.jpg';
+import normalVitals from '../assets/images/normalVitals.jpg';
 
 function LandingPage(props) {
     
@@ -24,11 +26,13 @@ function LandingPage(props) {
         {
             name: "Squats",
             description: "Connect with our trainers, schedule workouts, follow incentive plans!",
+            image: womanSquats,
             image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/young-woman-doing-squats-on-a-road-at-sunset-royalty-free-image-1645654296.jpg",
         },
         {
             name: "Follow & track your vital signs",
             description: "Track, and log vital signs to share with health care professionals to optimize and empower users!",
+            image: normalVitals,
             image: "https://agurgentcare.com/wp-content/uploads/2021/04/what-are-normal-vitals.jpeg",
         }
     ]
