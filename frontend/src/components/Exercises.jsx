@@ -3,7 +3,6 @@ import stayFitDataService from '../services/stayFitDataService';
 // import TemporaryDrawer from './TemporaryDrawer';
 import ResponsiveAppBar from './Navbar';
 import { Stack, ImageList, ImageListItem, Card, Container, Box } from '@mui/material'
-// import { ModalHover } from 'react-modal-hover' //install react-modal-hover
 
 const ExerciseList = () => {
     const [exercises, setExercises] = useState([]);
@@ -33,7 +32,6 @@ const ExerciseList = () => {
           <Stack spacing={8}>
           <ImageList 
             variant="standard"
-            // gap={12} 
             sx={{ 
               mx: "auto", 
               width: "90%", 
@@ -46,14 +44,10 @@ const ExerciseList = () => {
                 <>
                 <Card 
                   sx={{
-                    // position: "relative",
                     width: "26vw",
                     height: "26vw",
-                    // paddingBottom: "100%",
                   }}>     
-                   {/* <ModalHover onHover={<Hover/>} legendPos="left" legendMsg="Exercises">
-  <div>{exercises}</div>
-<ModalHover/> */}         
+                           
                   <ImageListItem key={exercise.index}>
                     <img
                       id={exercise._id} 

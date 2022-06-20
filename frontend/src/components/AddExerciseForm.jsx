@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import Button from "@mui/material/Button";
 import ResponsiveAppBar from './Navbar';
@@ -47,7 +46,7 @@ const AddExerciseForm = () => {
         <> 
         <ResponsiveAppBar/>
         <VStack spacing="12px">
-            <h1>Add New Exercise</h1>
+            <h2 style={{color: "gray"}}>Add New Exercise</h2>
             <FormControl id="userName" isRequired sx={{mt: "30px"}}>
             <FormLabel>Exercise Name</FormLabel>
             <input
@@ -129,8 +128,8 @@ const AddExerciseForm = () => {
                 placeholder="Enter Image URL"
             />
             </FormControl>
-            <br/>
-            <Button onClick={saveExercise} className="CheckButton" variant="contained" style={{marginTop: "10px"}}>Submit</Button>
+            <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
+            <Button onClick={saveExercise} className="CheckButton" variant="contained" size="small" style={{marginTop: "10px"}}>Submit</Button>
         </VStack>
         </>
      );

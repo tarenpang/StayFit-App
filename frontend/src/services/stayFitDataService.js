@@ -53,4 +53,4 @@ const stayFitDataService = {
   updateUser
 };
 
-export default stayFitDataService;
+export default {stayFitDataService};
