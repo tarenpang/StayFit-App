@@ -56,6 +56,7 @@ const Login = () => {
 
             stayFitDataService.loginUser(data)
             .then(response => {
+              const loggedInStatus = response.data.userLoggedIn;
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -64,10 +65,10 @@ const Login = () => {
                 position: "bottom",
               });
               setLoading(false);
-              setUserLoggedIn(true); 
+              setUserLoggedIn(loggedInStatus); 
               setUserName(loginInfo.userName);
-              // navigate.push("/"); // redirect to UserDashboard
               setLoginInfo(initialLoginState);
+              navigate('/mainPage')
           })
           } catch (error) {
             console.log('error is' + error);

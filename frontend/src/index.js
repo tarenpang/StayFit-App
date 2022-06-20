@@ -16,6 +16,7 @@ import Support from "./components/Support";
 import UserProfile from "./components/UserProfile"
 import FirstUserLogin from "./components/FirstTimeLogin"
 import AddExerciseForm from "./components/AddExerciseForm"
+import Trainers from "./components/Trainers"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -36,6 +37,7 @@ root.render(
         <Route path="/userprofile" element={<UserProfile />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/support" element={<Support />}></Route>
+        <Route path="/trainers" element={<Trainers />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
