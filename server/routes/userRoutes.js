@@ -26,6 +26,23 @@ router.post('/', async(req, res) => {
     }
 });
 
+//get all users; 
+router.get('/', async(req, res) => {
+	const name = req.query.name;
+    var condition = name ? {name: {$regex: new RegExp(name), $options: 'i'}} : {};
+    await User.find(condition)
+    .then(data => {
+        res.send(data)
+    })
+    .catch(err => {
+      console.log("error is:")
+        res.status(500).send({
+            message: err.message || "Error occured trying to retrieve users."
+        })
+    });	
+})
+
+
 //Add exercise to user exercise cart
 router.post('/:id', async(req, res) => {
 
@@ -41,8 +58,7 @@ router.post('/:id', async(req, res) => {
     } else {
         return res.status(409).send({message:"Unable to get user by id"})
     }
-})
-;
+});
 
 router.get(`/:id`, async(req, res) => {
     const id = req.params.id;

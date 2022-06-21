@@ -2,18 +2,12 @@ const router = require('express').Router();
 const {User} = require('../models/User')
 const bcrypt = require('bcryptjs');
 const Joi = require('joi');
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose')
 
+//user login
 router.post('/', async(req, res) => {
     console.log("log in post request1")
     try {
-        // const {error} = validate(req.body)
-        // if(error) {
-        // console.log("login error occured: " + error)
-        // return res.status(400).send({message: error.details[0].message});
-        // }
-        // console.log('passed user validation')
-
         const user = await User.findOne({userName: req.body.userName})
         if(!user) {
             console.log('did not find user')

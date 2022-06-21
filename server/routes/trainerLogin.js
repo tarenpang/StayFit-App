@@ -4,18 +4,15 @@ const bcrypt = require('bcryptjs');
 const Joi = require('joi');
 const mongoose = require('mongoose'); 
 
-
+//sign in trainer
 router.post('/', async(req, res) => {
     try {
         const trainer = await Trainer.findOne({userName: req.body.userName})
         if(!trainer) {
-            return res.status(401).send({message:"Trainer not found!"})
+            return res.status(401).send({message:"Trainer not found!, message from backend"})
         }
-        // console.log(2222222)
-        // console.log(req.body.password)
-        console.log("before validate password");
         
-        // const validPassword = bcrypt.compareSync(req.body.password, user.password);
+        const validPassword = bcrypt.compareSync(req.body.password, user.password);
 
         if(!bcrypt.compareSync(req.body.password, trainer.password)) {
             console.log("password failed")

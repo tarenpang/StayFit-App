@@ -60,6 +60,7 @@ router.get('/:id', async(req, res) => {
   });
 });
 
+//find Trainer and update info; 
 router.put('/:id', async(req, res) => {
   const id = req.params.id;
   Trainer.findByIdAndUpdate(id, req.body)
@@ -76,6 +77,7 @@ router.put('/:id', async(req, res) => {
   });
 });
 
+//find trainer by ID and delete
 router.delete('/:id', async(req, res) => {
   const id = req.params.id;
   Trainer.findByIdAndDelete(id)
