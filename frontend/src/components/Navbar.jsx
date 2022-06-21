@@ -203,7 +203,7 @@ const ResponsiveAppBar = (props) => {
                 </MenuItem>
               ))} */}
               <MenuItem  onClick={handleCloseUserMenu}>
-                <Link style={{ textDecoration: 'none' }} to="/userprofile/:id">
+                <Link style={{ textDecoration: 'none' }} to="/userprofile">
                   <Typography textAlign="center">Profile</Typography>
                 </Link>
               </MenuItem>

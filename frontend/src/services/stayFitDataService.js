@@ -29,11 +29,11 @@ const findUser = (id, data) => {
 };
 //logIn user
 const loginUser = (data) => {
-  return http.post("/usersLogin", data)
+  return http.post("/users/login", data)
 }
 //logIn Trainer
 const loginTrainer = (data) => {
-  return http.post("/trainersLogin", data)
+  return http.post("/trainers/login", data)
 }
 //update user; 
 const updateUser = (id, data) => {

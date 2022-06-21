@@ -44,18 +44,15 @@ const TrainerList = () => {
                     width: "26vw",
                     height: "26vw",
                     // paddingBottom: "100%",
-                  }}>        
-                  <ImageListItem key={trainer.index}>
-                    <img
-                      id={trainer._id} 
+                  }}>
+                    <p>{trainer.firstName}, {trainer.lastName}</p>
+                    <p>"{trainer.bio}"</p>        
+                  <ImageListItem id={trainer._id}>
+                    <img 
                       src={trainer.imageUrl}
                       alt={trainer.imageUrl}
-                      loading='lazy'
-                    />
+                      />
                   </ImageListItem>
-                    <p>{trainer.firstName}, {trainer.lastName}</p>
-                    <p>{trainer.description}</p>
-                    <p>{trainer.credentials}</p>
                 </Card>
                 </>
               ))}
@@ -67,3 +64,12 @@ const TrainerList = () => {
 }
 
 export default TrainerList; 
+
+
+
+
+
+
+
+
+

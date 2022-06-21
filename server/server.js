@@ -25,9 +25,9 @@ const PORT = process.env.PORT || 5001;
 
 app.use("/exercises", stayFitRoutes); 
 app.use("/trainers", trainerRoutes); 
-app.use("/trainersLogin", trainerLoginRoute);
+// app.use("/trainersLogin", trainerLoginRoute);
 app.use("/users", userRoutes);
-app.use("/usersLogin", userLoginRoute); 
+// app.use("/usersLogin", userLoginRoute); 
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);

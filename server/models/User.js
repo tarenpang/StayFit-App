@@ -2,10 +2,8 @@ const Exercise = require('./Exercise')
 const Trainer = require('./Trainer')
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
-const Joi = require('joi'); 
-const passwordComplexity = require('joi-password-complexity')
-const secret = process.env.SECRET;
-const jwt = require('jsonwebtoken');
+// const Joi = require('joi'); 
+// const passwordComplexity = require('joi-password-complexity')
 
 var userSchema = new Schema({
     firstName: {type: String, required: true},
@@ -33,20 +31,7 @@ var userSchema = new Schema({
     {timestamps: true}
 );
 
-const User = mongoose.model('user', userSchema)
-const validate = (data) => {
-  const schema = Joi.object({
-    firstName: Joi.string().required().min(2).max(20).label("firstName"),
-    lastName: Joi.string().required().min(2).max(20).label("lastName"),
-    userName: Joi.string().required().label("userName"),
-    password: passwordComplexity().required().label("password"), 
-  })
-  return schema.validate(data)
-}
-
-
-module.exports = {User, validate}
-
+module.exports = mongoose.model("users", userSchema);
 //Notes for adding authentication on front-end Using JOI tutorial 
 //make sure axios and react-router dom installed
 //CREATE USER (REGISTER USER PAGE)
