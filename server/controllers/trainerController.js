@@ -1,76 +1,65 @@
 const db = require('../models');
 const Trainer = require("../models/Trainer");
+const Exercise = require("../models/Exercise"); 
 const generateToken = require('../config/generateToken');
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const saltRounds = +process.env.SALT;
 
-exports.create = asyncHandler(async(req, res) => {
-  const { firstName, lastName, userName, password, repeatPassword, credentials, imageUrl } = req.body;
+//Register new trainer
+const createTrainer = asyncHandler(async(req, res) => {
+  const { firstName, lastName, userName, password, repeatPassword, credentials } = req.body;
   
   if(!firstName || !lastName || !userName || !password || !credentials) {
-    res.status(400).send({message: "Cannot be empty!"})
-    return
+    res.status(400)
+    throw new Error("Please enter all required fields!")
   }
 
   const trainerExists = await Trainer.findOne({ userName }); 
 
   if(trainerExists) {
-    res.status(400).send({message:"User already exists!"})
-    return
+    res.status(400)
+    throw new Error("Username taken!")
   }
   
   if(password !== repeatPassword) {
     res.status(400).send({message: "Passwords do not match!"})
-    return
   }
 
   const salt = bcrypt.genSaltSync(saltRounds); 
-  const hash = bcrypt.hashSync(password, salt);
-  try{
-    const trainer = new Trainer({
-        firstName: firstName,
-        lastName: lastName, 
-        userName: userName,
-        password: hash, 
-        credentials: credentials,
-        imageUrl: imageUrl
-    })
-    trainer
-    .save(trainer)
-    .then(data => {
-        res.send(data)
-    })
+  const hashedPassword = bcrypt.hashSync(password, salt);
+  const trainer = await Trainer.create({
+    firstName,
+    lastName,
+    userName,
+    password: hashedPassword,
+    credentials,
+  }) 
+ if(trainer) {
+  res.json({
+    _id: trainer._id,
+    firstName: trainer.firstName,
+    lastName: trainer.lastName,
+    token: generateToken(user._id)
+  })
+ }  else {
+  res.status(400)
+  throw new Error("Invalid trainer data!")
+ } 
 
-    if(trainer) {
-      res.status(201).json({
-        _id: trainer._id,
-        firstName: trainer.firstName,
-        lastName: trainer.lastName,
-        token: generateToken(trainer._id),
-      });
-    } else {
-      res.status(400).send({message:"User not found"})
-    }
-  }catch(err){
-    console.log(err.response.status);
-    console.log(err.response.statusText);
-    console.log(err.message);
-    console.log(err.response.headers); 
-    console.log(err.response.data);
-  } 
 });
 
-exports.login = asyncHandler(async (req, res) => {
+//login with Trainer
+const loginTrainer = asyncHandler(async (req, res) => {
   const { userName, password } = req.body;
 
-  const trainer = await User.findOne({userName});
+  const trainer = await Trainer.findOne({userName});
 
-  if(trainer && (await user.matchPassword(password))){
+  if(trainer && (await bcrypt.compare(password, trainer.password))){
     res.json({
-      userName: user.userName,
-      password: user.password,
-      token: generateToken(user._id)
+      _id: trainer._id,
+      userName: trainer.userName,
+      token: generateToken(trainer._id)
     });
   } else {
     res.status(401);
@@ -78,39 +67,40 @@ exports.login = asyncHandler(async (req, res) => {
   }
 })
 
-
-exports.findAll = (req, res) => {
+//find all trainers
+const findAllTrainers = asyncHandler(async(req, res) => {
     const firstName = req.query.firstName;
     const lastName = req.query.lastName;
 
     var condition = firstName || lastName ? {firstName: {$regex: new RegExp(firstName, lastName), $options: 'i'}} : {};
-    Trainer.find(condition)
+    await Trainer.find(condition)
     .then(data => {
         res.send(data)
     })
     .catch(err => {
-        res.status(500).send({
-            message: err.message || "Error occured trying to retrieve trainers."
-        })
+        res.status(500)
+        throw new Error(err.message || "Error occured retrieving trainers!")
     })
-}
+})
 
-exports.findOne = (req, res) => {
+const findOneTrainer = asyncHandler(async(req, res) => {
   const id = req.params.id;
-  Trainer.findById(id)
+  
+  await Trainer.findById(id)
   .then(data => {
-    if (!data)
-      res.status(404).send({ message: "Not found Trainer with id " + id });
-    else res.send(data);  
+    if (!data) {
+      res.status(404)
+      throw new Error({ message: "Not found Trainer with id " + id });
+    }
+    else res.send(data)  
   })
   .catch(err => {
-    res
-      .status(500)
-      .send({ message: "Error retrieving Trainer with id=" + id })
+    res.status(500)
+    throw new Error(err.message || "Error retrieving Trainer with id=" + id )
   });
-};
+});
 
-exports.update = (req, res) => {
+const updateTrainer = asyncHandler(async(req, res) => {
   if (!req.body) {
     return res.status(400).send({
       message: "Data to update cannot be empty!"
@@ -130,15 +120,15 @@ exports.update = (req, res) => {
         message: "Error updating Trainer with id=" + id
       });
     });
-};
+});
 
-exports.delete = (req, res) => {
+const deleteTrainer = asyncHandler(async(req, res) => {
   const id = req.params.id;
-  Trainer.findByIdAndRemove(id)
+  await Trainer.findByIdAndRemove(id)
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Trainer with id=${id}. Maybe Trainer was not found!`
+          message: `Cannot delete Trainer with id=${id}. Trainer was not found!`
         });
       } else {
         res.send({
@@ -148,7 +138,31 @@ exports.delete = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Trainer with id=" + id
+        message: err.message || "Could not delete Trainer with id=" + id
       });
     }); 
-};
+});
+
+const addExerciseToTrainer = asyncHandler(async(req, res) => {
+    let trainerId = req.params.id
+    let exerciseId = req.body.id
+
+    const trainer = await Trainer.findById(trainerId);
+    const exercise = await Exercise.findById(exerciseId);
+
+    if(trainer) {
+      Trainer.findByIdAndUpdate(trainerId, {$push:{exercises: exercise}})
+    } else {
+      return res.status(409).send({message:"Unable to get trainer by id!"})
+    }
+})
+
+module.exports = {
+  createTrainer, 
+  loginTrainer,
+  findAllTrainers, 
+  findOneTrainer,
+  updateTrainer,
+  deleteTrainer,
+  addExerciseToTrainer
+}
