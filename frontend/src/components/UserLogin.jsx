@@ -64,9 +64,9 @@ const UserLogin = () => {
               });
               setLoading(false);
               userLoggedIn =true; 
-              console.log("ln 71 userLoggedIn: ", userLoggedIn)
+              console.log(userLoggedIn)
               setUserName(loginInfo.userName);
-              navigate.push("/userdashboard"); // redirect to UserDashboard
+              navigate('/mainpage') // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
           } catch (error) {
