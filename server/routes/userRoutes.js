@@ -12,7 +12,7 @@ router.post('/login', loginUser);
 router.get('/', findAllUsers); 
 
 //Add exercise to user with exerciseId from req.body
-router.post('/:id', protect, addExerciseToUser);
+router.post('/addExercise/:id', protect, addExerciseToUser);
 
 //get user by ID
 router.get(`/:id`, protect, findOneUser);

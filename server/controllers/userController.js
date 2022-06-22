@@ -90,7 +90,12 @@ const findOneUser = asyncHandler(async(req, res) => {
   .then(data => {
     if (!data)
       res.status(404).send({ message: "Not found User with id " + id });
-    else res.send(data);  
+    else res.json({
+      _id: data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      token: generateToken(data._id)
+    });  
   })
   .catch(err => {
     res
@@ -145,14 +150,13 @@ const deleteUser = asyncHandler(async(req, res) => {
 
   const addExerciseToUser = asyncHandler(async(req, res) => {
 
+    // let exerciseId = req.body
     let userId = req.params.id
-    let exerciseId = req.body.id
 
-    const user = await User.findById(userId)
-    const exercise = await Exercise.findById(exerciseId)
-
+    const user = await User.findById(userId).populate({path: 'exercises', model: Exercise})
+    // const exercise = await Exercise.findById(exerciseId)
     if(user) {
-        User.findByIdAndUpdate(userId, {$push:{exercises: exercise}})
+        User.findById(userId)
         console.log("user found")
     } else {
         return res.status(409).send({message:"Unable to get user by id"})
