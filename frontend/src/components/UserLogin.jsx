@@ -52,7 +52,7 @@ const UserLogin = () => {
               password: loginInfo.password
             }
 
-            stayFitDataService.loginUser(data)
+            await stayFitDataService.loginUser(data)
             .then(response => {
               const {_id, userName, token} = response.data
               console.log(response.data)

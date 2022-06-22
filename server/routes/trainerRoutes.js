@@ -21,6 +21,6 @@ router.put('/:id', protect, updateTrainer);
 router.delete('/:id', protect, deleteTrainer);
 
 //add exercise to trainer
-router.post('/addExercise/:id', protect, addExerciseToTrainer)
+router.post('/saveExercise/:trainer/:exercise', protect, addExerciseToTrainer)
 
 module.exports = router; 

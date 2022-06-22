@@ -1,15 +1,14 @@
 import { useState, useEffect, useMemo } from 'react';
 import stayFitDataService from '../services/stayFitDataService';
 import ResponsiveAppBar from './Navbar';
-import { Stack, ImageList, ImageListItem, Card, Container, Box } from '@mui/material'
-
+import { Stack, ImageList, ImageListItem, Card, Container } from '@mui/material'
 const ExerciseList = () => {
     const [exercises, setExercises] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedExerciseID, setSelectedExerciseID] = useState();
     useEffect(() => {
         retrieveExercises();
     }, []);
-
     const retrieveExercises = async () => {
         await stayFitDataService.getAll()
         .then(response => {
@@ -21,11 +20,13 @@ const ExerciseList = () => {
             console.log(e)
         })
     }
-
     function handleCategoryChange(event){
       setSelectedCategory(event.target.value);
     }
-    
+    function handleExerciseLink(event){
+      setSelectedExerciseID(event.target.id)
+      console.log(selectedExerciseID)
+    }
     function getFilteredList(){
       if(!selectedCategory){
         return exercises;
@@ -34,6 +35,7 @@ const ExerciseList = () => {
     }
     var filteredList = useMemo(getFilteredList, [selectedCategory, exercises]);
     console.log(filteredList);
+    var exerciseLink = `/saveExercise/${selectedExerciseID}`
     return (
       <>
         <ResponsiveAppBar/>
@@ -82,14 +84,18 @@ const ExerciseList = () => {
                     // height: "26vw",
                     // paddingBottom: "100%",
                   }}>
+                  <h5>{exercise.name}</h5>
                   <ImageListItem key={exercise.index}>
+                    <a href={exerciseLink}>
                     <img
+                      onMouseOver={handleExerciseLink}
                       id={exercise._id}
                       src={`${exercise.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2`}
                       alt={exercise.imageUrl}
                       loading='lazy'
                       // sx={{ objectFit: "contain", overFlow: "hidden" }}
                     />
+                    </a>
                   </ImageListItem>
                 </Card>
                 </>
@@ -104,7 +110,9 @@ const ExerciseList = () => {
                     // height: "26vw",
                     // paddingBottom: "100%",
                   }}>
+                  <h5>{exercise.name}</h5>
                   <ImageListItem key={exercise.index}>
+                    <a href={exerciseLink}>
                     <img
                       id={exercise._id}
                       src={`${exercise.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2`}
@@ -112,6 +120,7 @@ const ExerciseList = () => {
                       loading='lazy'
                       // sx={{ objectFit: "contain", overFlow: "hidden" }}
                     />
+                    </a>
                   </ImageListItem>
                 </Card>
                 </>

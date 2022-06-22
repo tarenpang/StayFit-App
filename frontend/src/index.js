@@ -39,6 +39,8 @@ root.render(
         <Route path="/about" element={<About />}></Route>
         <Route path="/support" element={<Support />}></Route>
         <Route path="/trainers" element={<Trainers />}></Route>
+        <Route path="/saveExercise/:id" element={<ExerciseDetail />}></Route>
+        <Route path="/trainerdetail/:id" element={<TrainerDetail />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
