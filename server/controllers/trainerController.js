@@ -73,7 +73,7 @@ const findAllTrainers = asyncHandler(async(req, res) => {
     const lastName = req.query.lastName;
 
     var condition = firstName || lastName ? {firstName: {$regex: new RegExp(firstName, lastName), $options: 'i'}} : {};
-    await Trainer.find(condition)
+    await Trainer.find(condition).populate({path:'exercises', model: "Exercise"})
     .then(data => {
         res.send(data)
     })
@@ -82,11 +82,11 @@ const findAllTrainers = asyncHandler(async(req, res) => {
         throw new Error(err.message || "Error occured retrieving trainers!")
     })
 })
-
+//find one trainer
 const findOneTrainer = asyncHandler(async(req, res) => {
   const id = req.params.id;
   
-  await Trainer.findById(id)
+  await Trainer.findById(id).populate({path:'exercises', model: "Exercise"})
   .then(data => {
     if (!data) {
       res.status(404)
@@ -99,7 +99,7 @@ const findOneTrainer = asyncHandler(async(req, res) => {
     throw new Error(err.message || "Error retrieving Trainer with id=" + id )
   });
 });
-
+//update trainer
 const updateTrainer = asyncHandler(async(req, res) => {
   if (!req.body) {
     return res.status(400).send({
@@ -121,7 +121,7 @@ const updateTrainer = asyncHandler(async(req, res) => {
       });
     });
 });
-
+//delete trainer
 const deleteTrainer = asyncHandler(async(req, res) => {
   const id = req.params.id;
   await Trainer.findByIdAndRemove(id)
@@ -142,19 +142,19 @@ const deleteTrainer = asyncHandler(async(req, res) => {
       });
     }); 
 });
-
+//add exerise to trainer by id;
 const addExerciseToTrainer = asyncHandler(async(req, res) => {
-    let trainerId = req.params.id
-    let exerciseId = req.body.id
 
-    const trainer = await Trainer.findById(trainerId);
-    const exercise = await Exercise.findById(exerciseId);
+  // let exerciseId = req.body
+  const exercise = await Exercise.findById(req.params.exercise)
+  const trainer = await Trainer.findById(req.params.trainer)
 
-    if(trainer) {
-      Trainer.findByIdAndUpdate(trainerId, {$push:{exercises: exercise}})
-    } else {
-      return res.status(409).send({message:"Unable to get trainer by id!"})
-    }
+  if(trainer) {
+    Trainer.findByIdAndUpdate(req.params.trainer, {$push: {exercises: exercise}}).exec()
+      res.json(trainer)
+  } else {
+      return res.status(409).send({message:"Unable to get trainer by id"})
+  }
 })
 
 module.exports = {

@@ -10,7 +10,7 @@ var userSchema = new Schema({
     lastName: {type: String, required: true},
     userName: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    imageUrl: String,
+    imageUrl: {type: String, default: "https://icon-library.com/images/user-icon-jpg/user-icon-jpg-17.jpg"},
     exercises: [{type: mongoose.Schema.Types.ObjectId,
       ref: 'Exercise', strictPopulate: false
     }],

@@ -5,11 +5,13 @@ const generateToken = require('../config/generateToken');
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const saltRounds = +process.env.SALT;
+const mongoose = require('mongoose');
+const toId = mongoose.Types.ObjectId
 
 //Register new Users - create/sign token
 const createUser = asyncHandler( async(req, res) => {
   const { firstName, lastName, userName, password, repeatPassword, imageUrl } = req.body
- 
+
   if(!firstName || !lastName || !userName || !password) {
         res.status(400)
         throw new Error("Please enter all required fields!")
@@ -52,15 +54,17 @@ const createUser = asyncHandler( async(req, res) => {
 //Log In user - attach token  
 const loginUser = asyncHandler(async (req, res) => {
   const { userName, password } = req.body;
+  let token;
 
   const user = await User.findOne({userName});
-
+  token = generateToken(user._id)
   if(user && (await bcrypt.compare(password, user.password))){
     res.json({
       _id: user._id, 
       userName: user.userName,
       token: generateToken(user._id)
     });
+    res.cookie('authCookie', token,{maxAge: 900000, httpOnly: true})
   } else {
     res.status(401);
     throw new Error("Invalid username or password")
@@ -72,7 +76,7 @@ const findAllUsers = asyncHandler(async(req, res) => {
     const lastName = req.query.lastName;
 
     var condition = firstName || lastName ? {firstName: {$regex: new RegExp(firstName, lastName), $options: 'i'}} : {}
-    await User.find(condition)
+    await User.find(condition).populate({path: 'exercises', model: 'Exercise'})
     .then(data => {
         res.send(data)
     })
@@ -86,11 +90,16 @@ const findAllUsers = asyncHandler(async(req, res) => {
 //find user by id
 const findOneUser = asyncHandler(async(req, res) => {
   const id = req.params.id;
-  User.findById(id)
+  User.findById(id).populate({path: 'exercises', model: 'Exercise'})
   .then(data => {
     if (!data)
       res.status(404).send({ message: "Not found User with id " + id });
-    else res.send(data);  
+    else res.json({
+      _id: data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      token: generateToken(data._id)
+    });  
   })
   .catch(err => {
     res
@@ -145,15 +154,13 @@ const deleteUser = asyncHandler(async(req, res) => {
 
   const addExerciseToUser = asyncHandler(async(req, res) => {
 
-    let userId = req.params.id
-    let exerciseId = req.body.id
-
-    const user = await User.findById(userId)
-    const exercise = await Exercise.findById(exerciseId)
+    // let exerciseId = req.body
+    const exercise = await Exercise.findById(req.params.exercise)
+    const user = await User.findById(req.params.user)
 
     if(user) {
-        User.findByIdAndUpdate(userId, {$push:{exercises: exercise}})
-        console.log("user found")
+      User.findByIdAndUpdate(req.params.user, {$push: {exercises: exercise}}).exec()
+        res.json(user)
     } else {
         return res.status(409).send({message:"Unable to get user by id"})
     }
@@ -166,5 +173,5 @@ module.exports = {
   findOneUser,
   updateUser,
   deleteUser,
-  addExerciseToUser
+  addExerciseToUser,
 }

@@ -43,7 +43,7 @@ router.get(`/:id`, async(req, res) => {
         if(!data) {
             res.status(400).send({message:"No exercise found"})
         } else {
-            res.send({message:`User ${data.name} found with an id of ${data.id}`})
+            res.send(data)
         }
     })
     .catch(err => {

@@ -3,6 +3,9 @@ import http from "../http-common";
 const getAll = () => {
   return http.get("/exercises");
 };
+const getExercise = (id, data) => {
+  return http.get(`/exercises/${id}`, data, id);
+};
 //create a new exercise
 const create = (data) => {
   return http.post("/exercises", data);
@@ -14,6 +17,9 @@ const getAllTrainers = () => {
 //create a new trainer
 const createTrainer = (data) => {
   return http.post("/trainers", data);
+};
+const getTrainer = (id, data) => {
+  return http.get(`/trainers/${id}`, data, id);
 };
 //get all users 
 const getAllUsers = () => {
@@ -42,9 +48,11 @@ const updateUser = (id, data) => {
 
 const stayFitDataService = {
   getAll,
+  getExercise,
   create,
   getAllTrainers,
   createTrainer,
+  getTrainer,
   getAllUsers,
   createUser,
   findUser,
