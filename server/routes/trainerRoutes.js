@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
 const router = require('express').Router();
 const { createTrainer, loginTrainer, findAllTrainers, findOneTrainer, updateTrainer, deleteTrainer, addExerciseToTrainer } = require("../controllers/trainerController"); 
+const { protect } = require('../middleware/authMiddleware')
 
 // Create Trainer
 router.post('/', createTrainer);
@@ -12,15 +12,15 @@ router.post('/login', loginTrainer);
 router.get('/', findAllTrainers);
 
 // Find Trainer by ID
-router.get('/:id', findOneTrainer);
+router.get('/:id', protect, findOneTrainer);
 
 //find Trainer and update info; 
-router.put('/:id', updateTrainer);
+router.put('/:id', protect, updateTrainer);
 
 //find trainer by ID and delete
-router.delete('/:id', deleteTrainer);
+router.delete('/:id', protect, deleteTrainer);
 
 //add exercise to trainer
-router.post('/addExercise/:id', addExerciseToTrainer)
+router.post('/addExercise/:id', protect, addExerciseToTrainer)
 
 module.exports = router; 
