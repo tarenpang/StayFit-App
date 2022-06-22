@@ -17,6 +17,8 @@ import UserProfile from "./components/UserProfile"
 import FirstUserLogin from "./components/FirstTimeLogin"
 import AddExerciseForm from "./components/AddExerciseForm"
 import Trainers from "./components/Trainers"
+import TrainerDetail from "./components/TrainerDetail";
+import ExerciseDetail from "./components/ExerciseDetail";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
