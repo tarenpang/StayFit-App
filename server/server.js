@@ -3,10 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const connection = require('./config/db.config')
 const userRoutes = require('./routes/userRoutes');
-const userLoginRoute = require('./routes/userLogin');
 const stayFitRoutes = require('./routes/stayFitRoutes');
 const trainerRoutes = require('./routes/trainerRoutes');
-const trainerLoginRoute = require('./routes/trainerLogin'); 
 const app = express();
 // const { notFound, errorHandler } = require("../server/app/middleware/errorMiddleware"); 
 
