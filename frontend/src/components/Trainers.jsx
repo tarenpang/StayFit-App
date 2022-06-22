@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Stack, ImageList, ImageListItem, Card, Container, Box } from '@mui/material'
 import stayFitDataService from '../services/stayFitDataService';
+import ResponsiveAppBar from './Navbar';
 
 const TrainerList = () => {
     const [trainers, setTrainers] = useState([]);
@@ -22,6 +23,7 @@ const TrainerList = () => {
     
     return (
       <>
+      <ResponsiveAppBar/>
         <h1>Trainers:</h1>
         <Container className="container" sx={{ mx: "auto", textAlign: "center" }}>
           <Stack spacing={8}>
