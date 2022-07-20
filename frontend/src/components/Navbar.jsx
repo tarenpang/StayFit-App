@@ -1,5 +1,9 @@
+import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+import { logout, reset } from '../features/auth/authSlice'
+
 import * as React from 'react';
-import { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,19 +17,22 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import {Link} from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import loggedInStatus from '../contexts/auth';
+import { textDecoration } from '@chakra-ui/react';
+// import loggedInStatus from '../contexts/auth';
 // import { AuthProvider } from '../contexts/AuthContext'
 
 // import AdbIcon from '@mui/icons-material/Adb';
 
 
 const ResponsiveAppBar = (props) => {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
   // const [ loggedIn, setLoggedIn ] = useContext(AuthProvider);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,6 +48,12 @@ const ResponsiveAppBar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
 
   return (
     <AppBar position="static">
@@ -142,7 +155,7 @@ const ResponsiveAppBar = (props) => {
           {/* </Link> */}
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link style={{ textDecoration: 'none' }} to="/mainpage"> 
+          <Link style={{ textDecoration: 'none' }} to="/exercises"> 
               <Button
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -175,10 +188,32 @@ const ResponsiveAppBar = (props) => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {loggedInStatus
-                  ? <Avatar alt={"John"} src="/static/images/avatar/2.jpg"/>
-                  : <Avatar src={{AccountCircleIcon}} />}
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} style={{ width:"121px" }}>
+              <ul style={{ display:"flex", flexDirection:"row", flexWrap:"wrap", justifyContent:"flex-start" }}>
+                {user ? (
+                  <li style={{ listStyleType:"none" }}>
+                    {/* <button className='btn' onClick={onLogout}>
+                      <FaSignOutAlt color="white"/> Logout
+                    </button> */}
+                    <Link to='/mainpage' style={{ fontSize:".6em", color:"white", textDecoration:"none" }} onClick={onLogout}>
+                      <FaSignOutAlt color="white"/> Logout
+                    </Link>
+                  </li>
+                ) : (
+                  <>
+                    <li style={{ listStyleType:"none" }}>
+                      <Link to='/userLogin' style={{ fontSize:".6em", color:"white", textDecoration:"none" }}>
+                        <FaSignInAlt color="white" style={{ marginLeft:"9px" }}/> Login
+                      </Link>
+                    </li>
+                    <li style={{ listStyleType:"none" }}>
+                      <Link to='/registerUser' style={{ fontSize:".6em", color:"white", textDecoration:"none", marginLeft:"8px" }}>
+                        <FaUser color="white"/> Register
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
               </IconButton>
             </Tooltip>
             <Menu
@@ -209,7 +244,7 @@ const ResponsiveAppBar = (props) => {
               </MenuItem>
               <MenuItem  onClick={handleCloseUserMenu}>
                 <Link style={{ textDecoration: 'none' }} to="/">
-                  {loggedInStatus
+                  {user
                     ? <Typography textAlign="center">Logout</Typography>
                     : <Typography textAlign="center">Login</Typography>
                   }
