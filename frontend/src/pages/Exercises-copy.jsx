@@ -51,7 +51,7 @@ const ExerciseList = () => {
 	console.log(filteredList);
 
 	var exerciseLink = `/saveExercise/${selectedExerciseID}`;
-  
+
 	return (
 		<>
 			<ResponsiveAppBar />
