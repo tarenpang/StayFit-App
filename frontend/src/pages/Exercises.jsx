@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import stayFitDataService from '../services/stayFitDataService';
 import ResponsiveAppBar from '../components/Navbar';
 import {
@@ -9,10 +10,26 @@ import {
 	Container,
 } from '@mui/material';
 
+
+
 const ExerciseList = () => {
 	const [exercises, setExercises] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState();
 	const [selectedExerciseID, setSelectedExerciseID] = useState();
+
+  const isTabletOrLarger = useMediaQuery({ query: '(min-width: 768px)' })
+  const isBtwPhoneAndTablet = useMediaQuery({ query: '(min-width: 401px) and (max-width: 767px)' })
+  const isPhone = useMediaQuery({ query: '(max-width: 400px)' })
+
+  // columnsNum (status) {
+  //   if (isPhone) {
+  //     return 1;  
+  //   } else if (isBtwPhoneAndTablet) {
+  //     return 2;
+  //   }
+  //     return 3;
+  // }
+  // console.log("columnsNum: ", columnsNum);
 
 	useEffect(() => {
 		retrieveExercises();
@@ -51,7 +68,40 @@ const ExerciseList = () => {
 	console.log(filteredList);
 
 	var exerciseLink = `/saveExercise/${selectedExerciseID}`;
-  
+
+  // console.log("selected category: ", selectedCategory)
+
+  let exerciseType = "";
+
+  switch (selectedCategory) {
+    case 'FBW':
+      exerciseType = "Full Body Workout"
+      break;
+    case 'COR':
+      exerciseType = "Core Exercises"
+      break;
+    case 'AFE':
+      exerciseType = "Ankle and Foot Exercises"
+      break;
+    case 'CRV':
+      exerciseType = "Cervical (Neck) Exercises"
+      break;
+    case 'AWE':
+      exerciseType = "Arm and Wrist Exercises"
+      break;
+    case 'HKE':
+      exerciseType = "Hip and Knee Exercises"
+      break;
+    case 'SHD':
+      exerciseType = "Shoulder Exercises"
+      break;
+    case 'BRE':
+      exerciseType = "Breathing Exercises"
+      break;
+    default:
+      exerciseType = "All Workouts"
+  }
+
 	return (
 		<>
 			<ResponsiveAppBar />
@@ -71,15 +121,15 @@ const ExerciseList = () => {
 						<option value="COR">Core Exercises</option>
 						<option value="AFE">Ankle and Foot Exercises</option>
 						<option value="CRV">Cervical (Neck) Exercises</option>
-						<option value="AWE">Arm and Wrist Workouts</option>
+						<option value="AWE">Arm and Wrist Exercises</option>
 						<option value="HKE">Hip and Knee Exercises</option>
 						<option value="SHD">Shoulder Exercises</option>
 						<option value="BRE">Breathing Exercises</option>
 					</select>
 				</div>
 			</div>
-			<h1 style={{ textAlign: 'center', color: '#0B4C8A' }}>Exercises:</h1>
-			<Container className="container" sx={{ mx: 'auto', textAlign: 'center' }}>
+			<h1 style={{ textAlign: 'center', color: '#0B4C8A' }}>{exerciseType}</h1>
+			<Container className="container" sx={{mx: 'auto', textAlign: 'center'}}>
 				<Stack spacing={8}>
 					<ImageList
 						variant="standard"
@@ -88,7 +138,10 @@ const ExerciseList = () => {
 							width: '90%',
 							height: '100%',
 						}}
-						cols={3}
+						cols={
+              isPhone === true ? 1 : 
+              isBtwPhoneAndTablet === true ? 2 : 3
+            }
 					>
 						{!selectedCategory &&
 							exercises &&
