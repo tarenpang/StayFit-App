@@ -10,8 +10,6 @@ import {
 	Container,
 } from '@mui/material';
 
-
-
 const ExerciseList = () => {
 	const [exercises, setExercises] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState();
@@ -20,16 +18,6 @@ const ExerciseList = () => {
   const isTabletOrLarger = useMediaQuery({ query: '(min-width: 768px)' })
   const isBtwPhoneAndTablet = useMediaQuery({ query: '(min-width: 401px) and (max-width: 767px)' })
   const isPhone = useMediaQuery({ query: '(max-width: 400px)' })
-
-  // columnsNum (status) {
-  //   if (isPhone) {
-  //     return 1;  
-  //   } else if (isBtwPhoneAndTablet) {
-  //     return 2;
-  //   }
-  //     return 3;
-  // }
-  // console.log("columnsNum: ", columnsNum);
 
 	useEffect(() => {
 		retrieveExercises();

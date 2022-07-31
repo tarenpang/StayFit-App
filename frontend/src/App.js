@@ -8,8 +8,6 @@ import "./index.css";
 import TrainerLogin from "./pages/TrainerLogin"; 
 import TrainerDashboard from "./pages/TrainerDashboard";
 import UserDashboard from "./pages/UserDashboard";
-// import ResponsiveAppBar from "./components/Navbar";
-// import BottomAppBar from "./components/Footer";
 import RegisterUser from "./pages/RegisterUser";
 import RegisterTrainer from "./pages/RegisterTrainer";
 import About from "./pages/About";
@@ -20,8 +18,6 @@ import AddExerciseForm from "./components/AddExerciseForm"
 import Trainers from "./pages/Trainers"
 import TrainerDetail from "./components/TrainerDetail";
 import ExerciseDetail from "./pages/ExerciseDetail";
-// import {Link, Outlet } from "react-router-dom";
-
 
 function App() {
   return (

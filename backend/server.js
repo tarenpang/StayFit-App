@@ -1,10 +1,10 @@
 const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv').config();
-// const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const port = process.env.PORT || 5001;
 const cors = require("cors");
+// const { errorHandler } = require('./middleware/errorMiddleware');
 
 connectDB(); 
 
@@ -20,9 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/exercises", require('./routes/stayFitRoutes')); 
 app.use("/trainers", require('./routes/trainerRoutes')); 
-// app.use("/trainersLogin", require('./routes/trainerLogin'));
 app.use("/users", require('./routes/userRoutes'));
-// app.use("/usersLogin", require('./routes/userLogin'));
 
 // serve frontend
 // if (process.env.NODE_ENV === 'production') {

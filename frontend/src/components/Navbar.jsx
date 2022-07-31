@@ -52,7 +52,7 @@ const ResponsiveAppBar = (props) => {
   const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
-    navigate('/')
+    navigate('/mainpage')
   }
 
   return (
@@ -192,9 +192,6 @@ const ResponsiveAppBar = (props) => {
               <ul style={{ display:"flex", flexDirection:"row", flexWrap:"wrap", justifyContent:"flex-start" }}>
                 {user ? (
                   <li style={{ listStyleType:"none" }}>
-                    {/* <button className='btn' onClick={onLogout}>
-                      <FaSignOutAlt color="white"/> Logout
-                    </button> */}
                     <Link to='/mainpage' style={{ fontSize:".6em", color:"white", textDecoration:"none" }} onClick={onLogout}>
                       <FaSignOutAlt color="white"/> Logout
                     </Link>
