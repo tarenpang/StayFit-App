@@ -1,18 +1,16 @@
-import Button from "@mui/material/Button";
+import Button  from "@mui/material/Button";
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
-import { VStack } from "@chakra-ui/layout";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
+import { VStack } from "@chakra-ui/layout";
 import React, { useState } from "react";
-import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import stayFitDataService from "../services/stayFitDataService";
-import ResponsiveAppBar from '../components/Navbar'
+import ResponsiveAppBar from './Navbar'
 
+var userLoggedIn = false;
 
-var trainerLoggedIn = false;
-
-const TrainerLogin = () => { 
+const UserLogin = () => { 
   const initialLoginState = {
     userName: "",
     password: "",
@@ -21,9 +19,10 @@ const TrainerLogin = () => {
   };
 
   const [loginInfo, setLoginInfo] = useState([initialLoginState]);
-  const [trainerName, setTrainerName] = useState('');
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
 
+  
   const toast = useToast();
   const navigate = useNavigate();
   
@@ -47,16 +46,16 @@ const TrainerLogin = () => {
             setLoading(false);
             return;
           }
-
           try {
             var data = {
               userName: loginInfo.userName,
               password: loginInfo.password
             }
 
-            await stayFitDataService.loginTrainer(data)
+            await stayFitDataService.loginUser(data)
             .then(response => {
-              console.log(response.data);
+              const {_id, userName, token} = response.data
+              console.log(response.data)
               toast({
                 title: "Login Successful",
                 status: "success",
@@ -65,13 +64,12 @@ const TrainerLogin = () => {
                 position: "bottom",
               });
               setLoading(false);
-              trainerLoggedIn = true; 
-              setTrainerName(loginInfo.userName);
-              navigate.push("/trainerdashboard"); // redirect to TrainerDashboard
+              setUserName(loginInfo.userName);
+              navigate('/mainpage') // redirect to UserDashboard
               setLoginInfo(initialLoginState);
           })
-
           } catch (error) {
+            console.log('error is' + error);
             toast({
               title: "Error Occurred!",
               description: error.response.data.message,
@@ -81,7 +79,8 @@ const TrainerLogin = () => {
               position: "bottom",
             });
             setLoading(false);
-            trainerLoggedIn = false;
+            userLoggedIn = false;
+            console.log("ln 88 userLoggedIn: ", userLoggedIn)
           }
         }
   
@@ -89,7 +88,7 @@ const TrainerLogin = () => {
           <>
           <ResponsiveAppBar/>
             <VStack spacing="12px">
-              <h2 style={{color: "gray"}}>Trainer Login</h2>
+            <h2 style={{color: "gray"}}>User Login</h2>
               <FormControl id="userName" isRequired sx={{mt: "30px"}}>
                 <FormLabel>Username</FormLabel>
                 <input
@@ -102,7 +101,6 @@ const TrainerLogin = () => {
                   placeholder="Enter Username"
                 />
               </FormControl>
-
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
@@ -114,22 +112,31 @@ const TrainerLogin = () => {
                     onChange={handleInputChange}
                     name="password"
                     placeholder="Enter Password"
-
                   />
                 </InputGroup>
-                </FormControl>
+              </FormControl>
+              <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
+              <Button onClick={submitHandler} className="CheckButton" variant="contained" size="small" sx={{marginTop: "15px"}}>Submit</Button>
 
-                <p style={{textAlign: "center", color:"gray", fontSize: ".8em"}}>* Required Fields</p>
-
-              <Button onClick={submitHandler} className="CheckButton" variant="contained" size="small" style={{marginTop: "10px"}}>Submit</Button>
+              <br></br>
+              <h5 style={{color: "gray", marginTop: "30px"}}>New User? Please Register...</h5>
+              <Link to="/registerUser" style={{display: 'inline-block', textDecoration: "none"}}>
+                <Button 
+                  className="CheckButton" 
+                  variant="contained" 
+                  size="small"  
+                  sx={{
+                    backgroundColor: "gray",
+                    marginTop: "10px"
+                    }}>Register user</Button>
+              </Link>
+              <Link to="/trainerlogin" style={{display: 'inline-block', textDecoration: "none"}}>
+                <Button className="CheckButton" variant="textd" style={{marginTop: "10px"}}>Trainer Login</Button>
+              </Link>
             </VStack>
           </>                   
         );
       }
 
-export default TrainerLogin ;
-export {trainerLoggedIn} ;
-
-
-
-
+export default UserLogin;
+export { userLoggedIn };

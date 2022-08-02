@@ -138,7 +138,7 @@ const UpdateInfo = () => {
                 type="text"
                 id="injuries"
                 required
-                value={userInfo.injuries}
+                value={userInfo.hr}
                 onChange={handleInputChange}
                 name="injuries"
             />

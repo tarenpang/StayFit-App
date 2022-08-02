@@ -66,7 +66,7 @@ const ResponsiveAppBar = (props) => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/mainpage"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -235,7 +235,7 @@ const ResponsiveAppBar = (props) => {
                 </MenuItem>
               ))} */}
               <MenuItem  onClick={handleCloseUserMenu}>
-                <Link style={{ textDecoration: 'none' }} to="/userprofile/:id">
+                <Link style={{ textDecoration: 'none' }} to="/userprofile">
                   <Typography textAlign="center">Profile</Typography>
                 </Link>
               </MenuItem>

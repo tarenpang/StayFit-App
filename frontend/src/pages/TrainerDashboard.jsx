@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react'
 import ResponsiveAppBar from '../components/Navbar'
 import stayFitDataService from '../services/stayFitDataService'
+<<<<<<< HEAD:frontend/src/pages/TrainerDashboard.jsx
 import BasicMenu from '../components/ClientDropdownMenu'
 import AddExerciseForm from '../components/AddExerciseForm'
+=======
+import BasicMenu from './ClientDropdownMenu'
+import AddExerciseForm from './AddExerciseForm'
+>>>>>>> 21ce7f1c812cbba6b14db2119d50d187c23e3126:frontend/src/components/TrainerDashboard.jsx
 
 const TrainerDashboard = () => {
   const [clients, setClients] = useState([]);

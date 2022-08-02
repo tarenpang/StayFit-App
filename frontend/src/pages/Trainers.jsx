@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Stack, ImageList, ImageListItem, Card, Container, Box } from '@mui/material'
 import stayFitDataService from '../services/stayFitDataService';
+<<<<<<< HEAD:frontend/src/pages/Trainers.jsx
 import ResponsiveAppBar from '../components/Navbar';
+=======
+import ResponsiveAppBar from './Navbar';
+>>>>>>> 21ce7f1c812cbba6b14db2119d50d187c23e3126:frontend/src/components/Trainers.jsx
 
 const TrainerList = () => {
     const [trainers, setTrainers] = useState([]);
@@ -23,8 +27,13 @@ const TrainerList = () => {
     
     return (
       <>
+<<<<<<< HEAD:frontend/src/pages/Trainers.jsx
         <ResponsiveAppBar/>
         <h1 style={{textAlign: "center", color:"#0B4C8A"}}>Trainers:</h1>
+=======
+      <ResponsiveAppBar/>
+        <h1>Trainers:</h1>
+>>>>>>> 21ce7f1c812cbba6b14db2119d50d187c23e3126:frontend/src/components/Trainers.jsx
         <Container className="container" sx={{ mx: "auto", textAlign: "center" }}>
           <Stack spacing={8}>
           <ImageList 
@@ -46,18 +55,15 @@ const TrainerList = () => {
                     width: "26vw",
                     height: "26vw",
                     // paddingBottom: "100%",
-                  }}>        
-                  <ImageListItem key={trainer.index}>
-                    <img
-                      id={trainer._id} 
+                  }}>
+                    <p>{trainer.firstName}, {trainer.lastName}</p>
+                    <p>"{trainer.bio}"</p>        
+                  <ImageListItem id={trainer._id}>
+                    <img 
                       src={trainer.imageUrl}
                       alt={trainer.imageUrl}
-                      loading='lazy'
-                    />
+                      />
                   </ImageListItem>
-                    <p>{trainer.firstName}, {trainer.lastName}</p>
-                    <p>{trainer.description}</p>
-                    <p>{trainer.credentials}</p>
                 </Card>
                 </>
               ))}
@@ -69,3 +75,12 @@ const TrainerList = () => {
 }
 
 export default TrainerList; 
+
+
+
+
+
+
+
+
+
