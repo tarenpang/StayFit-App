@@ -14,59 +14,51 @@ const RegisterUser = () => {
 		repeatPassword: "",
 		// imageUrl: ""
 	};
-	const [user, setUser] = useState(initialUserState);
+	const [user, setUser] = useState([initialUserState]);
 
-	const handleInputChange = (event, prevState) => {
+	const handleInputChange = event => {
 		event.preventDefault();
 		const { name, value } = event.target;
-
-		if (name === "password") {
-			setUser(prev => ({
-				...prev,
-				password: value,
-			}));
-		} else if (name === "repeatPassword") {
-			setUser(prev => ({
-				...prev,
-				repeatPassword: value,
-			}));
-		} else {
-			setUser(prev => ({
-				...prev,
-				[name]: value,
-			}));
-		}
+		setUser({ ...user, [name]: value });
 	};
 
 	const saveUser = () => {
-		// Destructure state
-		const { firstName, lastName, userName, password, repeatPassword } = user;
+		console.log("save user activated");
+		var data = {
+			firstName: user.firstName,
+			lastName: user.lastName,
+			userName: user.userName,
+			password: user.password,
+			// imageUrl: user.imageUrl
+		};
+		stayFitDataService
+			.createUser(data)
+			.then(response => {
+				console.log("CRUD activated");
+				console.log(response);
+				setUser(initialUserState);
+			})
+			.catch(e => {
+				console.log(e);
+			});
+	};
 
-		// Form validation
-		// if (password !== repeatPassword) {
-		// 	// Show password error message
-		// 	return;
-		// }
-
-		// Create user object
-		const formData = {
-			firstName,
-			lastName,
-			userName,
-			password,
-			repeatPassword,
+		// Rest of data object
+		const data = {
+			firstName: user.firstName,
+			lastName: user.lastName,
+			username: user.username,
+			password: user.password,
 		};
 
 		// Call API
 		stayFitDataService
-			.createUser(formData)
+			.createUser(data)
 			.then(response => {
-				// Clear form
-				setUser(initialUserState);
-				// Show success message
+				// Handle success
 			})
-			.catch(error => {
-				// Show submission error message
+			.catch(err => {
+				// Handle error
 			});
 	};
 
