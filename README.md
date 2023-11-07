@@ -140,12 +140,11 @@ GitHub Link: [https://https://github.com/tarenpang/blockchain](https://https://g
 <ol>
     <li><b>npm install</b> - in each of the following directories:</li>
     <ol>
-      <li>blockchain</li>
       <li>backend</li>
       <li>frontend</li>
 </ol>
 
-<li>Start the app in the blockchain directory: <b>npm run start</b></li>
+<li>Start the app in the both the backend and frontend directories: <b>npm start</b></li>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
