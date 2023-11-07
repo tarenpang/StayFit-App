@@ -121,6 +121,15 @@ Workflow:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- EXERCISES -->
+<div id="top"></div>
+<br />
+<div align="center">
+    <img src="./frontend/src/assets/screenshots/StayFit_Exercises.png" alt="Logo" width="400" height="300">
+  
+</div>
+<br>
+
 ### Built With the MERN Stack
 
 - [MongoDB](https://mongodb.com)
