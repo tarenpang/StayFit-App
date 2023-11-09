@@ -144,7 +144,7 @@ Workflow:
 
 Visitors are encouraged to go to our GitHub repository to examine the code behind the functionality of the web app.
 
-GitHub Link: [https://https://github.com/tarenpang/blockchain](https://https://github.com/tarenpang/blockchain)
+GitHub Link: [https://https://github.com/tarenpang/StayFit-App](https://https://github.com/tarenpang/StayFit-App)
 
 <ol>
     <li><b>npm install</b> - in each of the following directories:</li>
